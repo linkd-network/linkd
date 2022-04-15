@@ -402,7 +402,15 @@
       "tags": [
         "web"
       ]
+    },
+    {
+      "packageName": "@monorepo/mgmt",
+      "projectFolder": "apps/mgmt",
+      "tags": [
+        "API"
+      ]
     }
+    
 
     // {
     //   /**
