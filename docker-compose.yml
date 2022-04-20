@@ -4,10 +4,10 @@ services:
     env_file:
       - .env
     environment:
-        - FLYWAY_USER=${POSTGRES_USER}
-        - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
-        - FLYWAY_URL=jdbc:postgresql://postgres-fybr:${POSTGRES_PORT}/${POSTGRES_DATABASE}
-        - FLYWAY_DB=${POSTGRES_DATABASE}
+      - FLYWAY_USER=${POSTGRES_USER}
+      - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
+      - FLYWAY_URL=jdbc:postgresql://postgres-fybr:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+      - FLYWAY_DB=${POSTGRES_DATABASE}
     image: flyway/flyway
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
     volumes:
@@ -17,7 +17,7 @@ services:
       - postgres
   postgres:
     env_file:
-      - .env  
+      - .env
     container_name: postgres-fybr
     image: postgres
     restart: always
@@ -27,25 +27,33 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DATABASE}
+  web:
+    image: web
+    build:
+      context: ./apps/web
+      dockerfile: ./Dockerfile
+      args:
+        - EXPOSE_PORT=${WEB_PORT}
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
   mgmt:
     env_file:
-      - .env  
+      - .env
     environment:
-          - DB_HOST=${POSTGRES_HOST}
-          - DB_PORT=${POSTGRES_PORT}
-          - DB_USERNAME=${POSTGRES_USER}
-          - DB_PASSWORD=${POSTGRES_PASSWORD}
-          - DB=${POSTGRES_DATABASE}
-          - API_PORT=${API_PORT}
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_PORT=${POSTGRES_PORT}
+      - DB_USERNAME=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB=${POSTGRES_DATABASE}
+      - API_PORT=${API_PORT}
     container_name: mgmt
-    image: nestjs-api-dev:1.0.0
+    image: mgmt-api
     depends_on:
-      - postgres  
-    build:
-      context: ./apps/mgmt
-      target: development
-      dockerfile: ./Dockerfile
-    # command: node /usr/src/app/apps/mgmt/dist/main
+      - postgres
+    # build:
+    #   context: ./apps/mgmt
+    #   target: development
+    #   dockerfile: ./Dockerfile
     command: npm run start:dev --prefix /usr/src/app/apps/mgmt/
     ports:
       - ${API_PORT}:${API_PORT}

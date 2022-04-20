@@ -12,8 +12,9 @@ export class AppController {
   }
 
   @Get('getNote')
-  get(): string {
-    return 'Hola';
+  get() {
+    console.log('im here');
+    return { name: 'Hola' };
     // return this.appService.getHello();
   }
 }

@@ -28,3 +28,10 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_BROKER_ID: 1
+
+
+
+# 1. Run `docker-compose -f docker-compose.yml up -d` in the kafka folder
+# 2. Create kafka topic manually 
+#    `docker-compose exec broker kafka-topics --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic sc-events`
+# 3. 
