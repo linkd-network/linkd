@@ -6,20 +6,44 @@ Please follow the instractions in order to deploy a local development environmen
 
 
 
-## Setup environment like a ninja 
+## Setup environment
 
-1. Please make sure you have node installed on you machine, if no please download from [here](https://nodejs.org/en/download/). 
-1. Please make sure you have docker installed on you machine, if no please download from [here](https://www.docker.com/products/docker-desktop/). 
+1. install `Node` on you machine from [here](https://nodejs.org/en/download/). 
+
+2. install `Docker`  on you machine from [here](https://www.docker.com/products/docker-desktop/). 
 If using linux machine please install docker compose as well from [here](https://docs.docker.com/compose/install/) 
 
-2. Clone Repo 
+3. install `pnpm` on you machine from [here](https://pnpm.io/installation). 
 
-3. In folder  ```/apps/mgmt``` run ```pnpm install```
-4. In folder  ```/apps/web``` run ```pnpm install```
-5. Go to the repo root project and run 
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/MatanShushan/smrt.git
+```
+
+Go to the project directory
+
+```bash
+  cd ./smrt
+```
+
+Install dependencies
+
+```bash
+pnpm --prefix ./apps/mgmt install 
+```
+```bash
+pnpm -prefix  ./apps/web/src install
+```
+
+Run Project
 ```bash
   docker-compose up -d
 ```
+
 #### You are good to go!
 
     
@@ -42,6 +66,8 @@ After set the env and its up and running, lets see what do we have.
 
  #### Web
  - There is proxy to the API port
+## FAQ
 
+#### Something is not running as expected
 
- 
+Please reach Matan on slack 
