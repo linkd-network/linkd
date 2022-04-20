@@ -6,7 +6,7 @@ Please follow the instractions in order to deploy a local development environmen
 
 
 
-## Setup environment
+## Setup environment like a ninja 
 
 
 1. Please make sure you have docker installed on you machine, If no please download from [here](https://www.docker.com/products/docker-desktop/). 
