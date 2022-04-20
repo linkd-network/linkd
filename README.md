@@ -67,7 +67,12 @@ After set the env and its up and running, lets see what do we have.
  #### Web
  - There is proxy to the API port
 ## FAQ
+#### How to see mgmt logs?
 
-#### Something is not running as expected
+Please run 
+```docker logs -f mgmt```
+
+
+#### Something is not running as expected?
 
 Please reach Matan on slack 
