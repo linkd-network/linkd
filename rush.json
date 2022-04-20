@@ -397,8 +397,8 @@
    */
   "projects": [
     {
-      "packageName": "@monorepo/smrt-console",
-      "projectFolder": "apps/smrt-console",
+      "packageName": "@monorepo/web",
+      "projectFolder": "apps/web",
       "tags": [
         "web"
       ]
