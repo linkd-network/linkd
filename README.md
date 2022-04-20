@@ -8,15 +8,15 @@ Please follow the instractions in order to deploy a local development environmen
 
 ## Setup environment like a ninja 
 
-
-1. Please make sure you have docker installed on you machine, If no please download from [here](https://www.docker.com/products/docker-desktop/). 
+1. Please make sure you have node installed on you machine, if no please download from [here](https://nodejs.org/en/download/). 
+1. Please make sure you have docker installed on you machine, if no please download from [here](https://www.docker.com/products/docker-desktop/). 
 If using linux machine please install docker compose as well from [here](https://docs.docker.com/compose/install/) 
 
 2. Clone Repo 
 
 3. In folder  ```/apps/mgmt``` run ```pnpm install```
 4. In folder  ```/apps/web``` run ```pnpm install```
-4. Go to the repo root project and run 
+5. Go to the repo root project and run 
 ```bash
   docker-compose up -d
 ```
