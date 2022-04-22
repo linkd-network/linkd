@@ -11,6 +11,20 @@
    * "rush my-global-command --help".
    */
   "commands": [
+    {
+      "commandKind": "global",
+      "name": "deploy-local-dev",
+      "summary": "Deploys the application",
+      "description": "Run this command to deploy the all applications on containers",
+      "shellCommand": "docker-compose up"
+    },
+    {
+      "commandKind": "global",
+      "name": "rm-local",
+      "summary": "Docker compose down",
+      "description": "This command remove local env",
+      "shellCommand": "docker-compose down"
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom command.

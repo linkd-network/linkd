@@ -14,8 +14,7 @@ Please follow the instractions in order to deploy a local development environmen
 If using linux machine please install docker compose as well from [here](https://docs.docker.com/compose/install/) 
 
 3. install `pnpm` on you machine from [here](https://pnpm.io/installation). 
-
-
+4. install `rush` on you machine from [here](https://rushjs.io/pages/intro/get_started/). 
 ## Run Locally
 
 Clone the project
@@ -30,18 +29,31 @@ Go to the project directory
   cd ./smrt
 ```
 
+
+
+ 
+ #### On docker containers
+ If you wish to run the project on docker condaitners 
+```bash
+  rush deploy-local-dev
+``` 
+If you wish to run the project on docker condaitners 
+```bash
+  rush deploy-local-dev
+``` 
+
+
+#### Locally (No DB)
 Install dependencies
-
 ```bash
-pnpm --prefix ./apps/mgmt install 
+rush update
 ```
-```bash
-pnpm -prefix  ./apps/web/src install
-```
+Go into the wanted project 
+```cd ./apps/<project>```
 
-Run Project
+Run project 
 ```bash
-  docker-compose up -d
+rushx start
 ```
 
 #### You are good to go!
