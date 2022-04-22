@@ -31,8 +31,8 @@ Go to the project directory
 
 
 
- 
- #### On docker containers
+ #### You can run the project on dokcer container or locally 
+ #### Docker containers (Recomended)
  If you wish to run the project on docker condaitners 
 ```bash
   rush deploy-local-dev
