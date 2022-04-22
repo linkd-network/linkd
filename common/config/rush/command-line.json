@@ -13,10 +13,17 @@
   "commands": [
     {
       "commandKind": "global",
+      "name": "run-apps",
+      "summary": "Deploys the application",
+      "description": "Run this command to deploy the all applications on containers",
+      "shellCommand": "rushx "
+    },
+    {
+      "commandKind": "global",
       "name": "deploy-local-dev",
       "summary": "Deploys the application",
       "description": "Run this command to deploy the all applications on containers",
-      "shellCommand": "docker-compose up"
+      "shellCommand": "docker-compose up -d"
     },
     {
       "commandKind": "global",
