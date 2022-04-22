@@ -63,4 +63,13 @@ services:
       - ./apps/mgmt:/app/mgmt
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    # restart: unless-stopped
+  tracker:
+      container_name: tracker
+      image: tracker
+      build:
+        context: ./apps/tracker
+        dockerfile: Dockerfile
+      restart: always
+      ports:
+          - "8080:8080"
+  # restart: unless-stopped
