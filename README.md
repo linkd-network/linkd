@@ -1,5 +1,5 @@
 
-# Fyber local deployment!
+# Linkd local deployment!
 
 Please follow the instractions in order to deploy a local development environment
 
