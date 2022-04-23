@@ -7,9 +7,4 @@ export class AppController {
   get() {
     return { success: true };
   }
-
-  @Get('health-check51221')
-  gets() {
-    return { success: true };
-  }
 }
