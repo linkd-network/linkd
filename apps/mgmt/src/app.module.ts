@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { configService } from './config/config.service';
 import { Note } from './model/notes.entity';
+import { AdsModule } from './modules/ads/ads.module';
 import { TrackApiModule } from './modules/track-api/track-api.module';
 
 require('dotenv').config();
@@ -16,8 +17,8 @@ const DB = process.env.DB
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     TrackApiModule,
+    AdsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: DB_HOST,

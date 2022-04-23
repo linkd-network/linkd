@@ -1,9 +1,7 @@
 
-# Fyber local deployment!
+# Linkd local deployment!
 
 Please follow the instractions in order to deploy a local development environment
-
-
 
 
 ## Setup environment
@@ -15,6 +13,7 @@ If using linux machine please install docker compose as well from [here](https:/
 
 3. install `pnpm` on you machine from [here](https://pnpm.io/installation). 
 4. install `rush` on you machine from [here](https://rushjs.io/pages/intro/get_started/). 
+5. 
 ## Run Locally
 
 Clone the project
@@ -26,37 +25,32 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd ./smrt
+  cd ./linkd
 ```
 
+ ## Run Docker
+Run your newly downloaded docker desktop app
 
-
- #### You can run the project on dokcer container or locally 
- #### Docker containers (Recomended)
- If you wish to run the project on docker condaitners 
-```bash
-  rush deploy-local-dev
-``` 
-If you wish to run the project on docker condaitners 
+ ## Run Docker containers
 ```bash
   rush deploy-local-dev
 ``` 
 
+### You are good to go!
 
-#### Locally (No DB)
-Install dependencies
-```bash
-rush update
-```
-Go into the wanted project 
-```cd ./apps/<project>```
+## View MGMT Logs
 
-Run project 
-```bash
-rushx start
-```
+Please run
+```docker logs -f mgmt```
 
-#### You are good to go!
+## URLS
+
+mgmt
+```localhost:4001```
+```localhost:4001/v1/mgmt/health-check```
+
+web
+```localhost:4033```
 
     
 ## Development

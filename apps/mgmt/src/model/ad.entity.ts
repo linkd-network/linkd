@@ -22,7 +22,7 @@ export class Ad {
     sampling_rate: SamplingRate
 
     @Column({ type: 'timestamp' }) // Not recommended
-    creation_date: Date;
+    creation_date: number;
 
     @Column({ type: 'varchar', length: 300 })
     publisher: string;

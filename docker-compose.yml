@@ -6,7 +6,7 @@ services:
     environment:
       - FLYWAY_USER=${POSTGRES_USER}
       - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
-      - FLYWAY_URL=jdbc:postgresql://postgres-fybr:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+      - FLYWAY_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
       - FLYWAY_DB=${POSTGRES_DATABASE}
     image: flyway/flyway
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
@@ -18,7 +18,7 @@ services:
   postgres:
     env_file:
       - .env
-    container_name: postgres-fybr
+    container_name: ${POSTGRES_HOST}
     image: postgres
     restart: always
     ports:
