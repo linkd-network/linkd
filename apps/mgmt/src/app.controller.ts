@@ -13,8 +13,8 @@ export class AppController {
 
   @Get('getNote')
   get() {
-    console.log('im here');
-    return { name: 'Hola' };
+    console.log('im here 1');
+    return { name: 'Deanox' };
     // return this.appService.getHello();
   }
 }
