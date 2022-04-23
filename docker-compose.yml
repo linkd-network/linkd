@@ -60,7 +60,6 @@ services:
       - 9229:9229
 
     volumes:
-      - ./apps/mgmt:/app/mgmt
+      - ./apps/mgmt:/mgmt
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    # restart: unless-stopped

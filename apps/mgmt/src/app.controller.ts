@@ -3,18 +3,13 @@ import { Controller, Get, Post } from '@nestjs/common';
 @Controller()
 export class AppController {
   constructor() { }
-
-
-  @Post('addNote')
-  appNote(): string {
-    return 'Hola';
-    // return this.appService.getHello();
+  @Get('health-check')
+  get() {
+    return { success: true };
   }
 
-  @Get('getNote')
-  get() {
-    console.log('im here');
-    return { name: 'Hola' };
-    // return this.appService.getHello();
+  @Get('health-check51221')
+  gets() {
+    return { success: true };
   }
 }
