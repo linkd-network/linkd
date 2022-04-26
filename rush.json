@@ -367,6 +367,11 @@
    */
   "projects": [
     {
+      "packageName": "@monorepo/hedera-sdk",
+      "projectFolder": "apps/hedera-sdk",
+      "tags": []
+    },
+    {
       "packageName": "@monorepo/web",
       "projectFolder": "apps/web",
       "tags": [
