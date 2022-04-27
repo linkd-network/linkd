@@ -19,7 +19,7 @@ If using linux machine please install docker compose as well from [here](https:/
 Clone the project
 
 ```bash
-  git clone https://github.com/MatanShushan/smrt.git
+  git clone https://github.com/linkd-dev/linkd.git
 ```
 
 Go to the project directory
