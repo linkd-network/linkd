@@ -1,6 +1,7 @@
 version: '3'
 services:
   flyway:
+    container_name: migrations
     env_file:
       - .env
     environment:
@@ -46,6 +47,9 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB=${POSTGRES_DATABASE}
       - API_PORT=${API_PORT}
+      - HEDERA_ACCOUNTID=${HEDERA_ACCOUNTID}
+      - HEDERA_PUBLICKEY=${HEDERA_PUBLICKEY}
+      - HEDERA_PRIVATEKEY=${HEDERA_PRIVATEKEY}
     container_name: mgmt
     image: nestjs-api-dev:1.0.0
     depends_on:

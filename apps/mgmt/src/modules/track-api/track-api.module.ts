@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Note } from 'src/model/notes.entity';
+import { TrackingEvent } from 'src/model/trackEvent.entity';
 import { SCEventsConsumer } from './consumer/SCEvents.consumer';
 import { TrackerController } from './controllers/tracker.controller';
+import { TrackingService } from './services/tracking/tracking.service';
 
 @Module({
     imports: [
         // KafkaModule,
-        TypeOrmModule.forFeature([Note])
+        TypeOrmModule.forFeature([TrackingEvent])
     ],
     controllers: [
         TrackerController
     ],
     providers: [
+        TrackingService
         // SCEventsConsumer
     ],
 })

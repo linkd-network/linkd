@@ -1,9 +1,9 @@
 import { AdModel, ContentType, SamplingRate } from 'src/app.enums';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column,PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'ad' })
 export class Ad {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: string;
 
     @Column({ type: 'varchar', length: 300 })
@@ -16,13 +16,13 @@ export class Ad {
     model: AdModel
 
     @Column({ type: 'enum', enum: ContentType })
-    content_type: ContentType
+    contentType: ContentType
 
     @Column({ type: 'enum', enum: SamplingRate, default: SamplingRate.Day })
-    sampling_rate: SamplingRate
+    samplingRate: SamplingRate
 
     @Column({ type: 'timestamp' }) // Not recommended
-    creation_date: number;
+    creationDate: number;
 
     @Column({ type: 'varchar', length: 300 })
     publisher: string;

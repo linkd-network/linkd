@@ -1,24 +1,16 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { KafkaTopic, TrackerEventType } from 'src/app.enums';
 import { TrackerEvent } from 'src/app.models';
-import { Note } from 'src/model/notes.entity';
 import { KafkaProducerService } from 'src/modules/kafka/services/kafka-producer/kafka-producer.service';
 import { Repository } from 'typeorm';
 
 @Controller('tracker')
 export class TrackerController {
 
-    constructor(@InjectRepository(Note) private readonly repo: Repository<Note>) { }
+    @Put()
+    tackingEvent(@Body() payload: Partial<TrackEvent>) {
 
-    @Get()
-    public async getAll() {
-        return await this.repo.find();
-    }
-
-    @Post()
-    public async post() {
-        return await this.repo.insert({id:'2',note:'asodm'});
     }
 
     // @Post('event')

@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { configService } from './config/config.service';
-import { Note } from './model/notes.entity';
 import { AdsModule } from './modules/ads/ads.module';
 import { TrackApiModule } from './modules/track-api/track-api.module';
 
@@ -13,7 +12,6 @@ const DB_PORT = process.env.DB_PORT
 const DB_USERNAME = process.env.DB_USERNAME
 const DB_PASSWORD = process.env.DB_PASSWORD
 const DB = process.env.DB
-
 
 @Module({
   imports: [
