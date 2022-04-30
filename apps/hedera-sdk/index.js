@@ -18,5 +18,31 @@ async function main() {
     const client = Client.forTestnet();
 
     client.setOperator(myAccountId, myPrivateKey);
+    
+    
+
+    //Mint another 1,000 tokens and freeze the unsigned transaction for manual signing
+const transaction = await new TokenMintTransaction()
+.setTokenId(tokenId)
+.setAmount(1000)
+.freezeWith(client);
+
+//Sign with the supply private key of the token 
+const signTx = await transaction.sign(supplyKey);
+
+//Submit the transaction to a Hedera network    
+const txResponse = await signTx.execute(client);
+
+//Request the receipt of the transaction
+const receipt = await txResponse.getReceipt(client);
+
+//Get the transaction consensus status
+const transactionStatus = receipt.status;
+
+console.log("The transaction consensus status " +transactionStatus.toString());
+
+//v2.0.7
+
+
 }
 main();

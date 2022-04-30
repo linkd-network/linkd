@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@hashgraph/sdk": "^2.13.1"
+	}
+}
