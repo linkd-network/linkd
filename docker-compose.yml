@@ -29,6 +29,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DATABASE}
   web:
+    container_name: web
     image: web
     build:
       context: ./apps/web
@@ -37,6 +38,8 @@ services:
         - EXPOSE_PORT=${WEB_PORT}
     ports:
       - ${WEB_PORT}:${WEB_PORT}
+    depends_on:
+      - mgmt
   mgmt:
     env_file:
       - .env

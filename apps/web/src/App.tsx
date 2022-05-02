@@ -3,7 +3,7 @@ import './App.css';
 
 class App extends React.Component {
   componentDidMount(){
-    fetch('/mgmt/v1/getNote')
+    fetch('/mgmt/v1/health-check')
     .then(res => res.json())
     .then((res)=>{
       console.log(res);
