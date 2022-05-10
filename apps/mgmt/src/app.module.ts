@@ -26,6 +26,7 @@ const DB = process.env.DB
       database: DB,
       entities: [__dirname + '/../**/*.entity.js'],
       ssl: false,
+      synchronize: true,
     }),
   ],
   controllers: [AppController],

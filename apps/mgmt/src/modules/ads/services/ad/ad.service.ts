@@ -1,60 +1,65 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { ContractId, TokenId, AccountId } from '@hashgraph/sdk';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PostAdPayload } from 'src/app.models';
 import { Ad } from 'src/model/ad.entity';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
+import { HederaAPIService } from '../../../../shared/services/hederaAPI.service';
 
 @Injectable()
 export class AdService {
-    constructor(@InjectRepository(Ad) private readonly repo: Repository<Ad>) { }
+    constructor(
+        @InjectRepository(Ad) private readonly repo: Repository<Ad>,
+        private hederaAPIService: HederaAPIService,
+    ) { }
 
-    public async postAd(payload: Partial<Ad>) {
+    public async getAdsForUI() {
 
-        this.validateNewAd({ ad: payload })
-        let ad: Ad = this.addMissingFieldToAd({ ad: payload });
-        try {
-            console.log('Inserting ad into DB', ad);
-            await this.repo.insert(ad);
-
-            this.startCampaign({ ad });
-            return { ...ad }
-        } catch (error) {
-            console.error(error)
-            throw new HttpException(`Something went wrong`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    startCampaign({ ad }: { ad: Ad }) {
+        return await this.repo.find({ select: ['content', 'id', 'name', 'creationDate'] })
 
     }
 
-    private addMissingFieldToAd({ ad }: { ad: Partial<Ad> }): Ad {
-
-        ad.creationDate = new Date().getTime();
-
-        ad.id = uuidv4();
-        return <Ad>ad;
+    public async triggerEvent({ contractId, accountId }: { contractId: string, accountId: string }) {
+        return await this.hederaAPIService.triggerPayment({ accountId: AccountId.fromString(accountId), contractId: ContractId.fromString(contractId) })
     }
 
-    private validateNewAd({ ad }: { ad: Partial<Ad> }) {
-        if (!ad) {
-            throw new HttpException(`No Ad provided`, HttpStatus.BAD_REQUEST);
-        }
-
-        this.checkNotNullInFields({ obj: ad, fields: ['budget', 'model', 'content_type', 'sampling_rate'] })
-
-        if (ad.budget <= 0) {
-            throw new HttpException(`Budget minimum is 1`, HttpStatus.BAD_REQUEST);
-        }
-
-    }
-
-
-    checkNotNullInFields({ obj, fields }: { obj: Object, fields: string[] }) {
-        for (const field of fields) {
-            if (!obj[field] && obj[field] !== 0) {
-                throw new HttpException(`Missing field ${field}`, HttpStatus.BAD_REQUEST);
+    public async subscribeToAd({ id }: { id: string }) {
+        const res = await this.repo.findOne({
+            where: {
+                id: id
             }
+        })
+
+        const { accountId, key, accountIdStr } = await this.hederaAPIService.createAccount();
+        this.hederaAPIService.associateSmartContract({ accountKey: key, accountId: accountId, contractId: ContractId.fromString(res.contractId) })
+        return {
+            contractId: res.contractId,
+            accountId: accountIdStr
         }
     }
+
+    public async publishNewAd({ ad }: { ad: PostAdPayload }) {
+        const { tokenId, tokenIdString } = await this.hederaAPIService.createFungibleToken({ initialTokenSupply: ad.totalBudget })
+
+        const { contractId } = await this.hederaAPIService.publishSmartContract({
+            amountPerEvent: ad.coinsPerEvent,
+            tokenAddressSol: tokenId.toSolidityAddress(),
+            tokenId: tokenId,
+        })
+
+        const migratedAd = new Ad()
+
+        migratedAd.id = uuidv4();
+        migratedAd.content = ad.content;
+        migratedAd.contractId = contractId;
+        migratedAd.creationDate = new Date();
+        migratedAd.name = ad.name;
+        migratedAd.tokenId = tokenIdString;
+
+        await this.repo.insert(migratedAd)
+
+    }
+
 }
