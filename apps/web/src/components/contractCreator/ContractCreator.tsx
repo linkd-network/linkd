@@ -169,12 +169,12 @@ const ContractCreator: React.FC = () => {
                                     className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 
+                                    bg-gray-900 
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
-                                    text-gray-200 
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                     }
