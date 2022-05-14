@@ -48,11 +48,11 @@ const ContractCreator: React.FC = () => {
                                     text-gray-300 
                                     leading-tight 
                                     `
-                                }
-                                {...register("title")}
-                                type="text"
-                            />
-                        </div>
+                                    }
+                                    {...register("title")}
+                                    type="text"
+                                />
+                            </div>
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
@@ -73,11 +73,11 @@ const ContractCreator: React.FC = () => {
                                     text-gray-300 
                                     leading-tight 
                                     `
-                                }
-                                {...register("costPerAction")}
-                                type="number"
-                            />
-                        </div>
+                                    }
+                                    {...register("costPerAction")}
+                                    type="number"
+                                />
+                            </div>
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
@@ -98,11 +98,11 @@ const ContractCreator: React.FC = () => {
                                     text-gray-300 
                                     leading-tight 
                                     `
-                                }
-                                {...register("budget")}
-                                type="number"
-                            />
-                        </div>
+                                    }
+                                    {...register("budget")}
+                                    type="number"
+                                />
+                            </div>
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
@@ -123,11 +123,11 @@ const ContractCreator: React.FC = () => {
                                     text-gray-300 
                                     leading-tight 
                                     `
-                                }
-                                {...register("contentURL")}
-                                type="text"
-                            />
-                        </div>
+                                    }
+                                    {...register("contentURL")}
+                                    type="text"
+                                />
+                            </div>
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
@@ -148,25 +148,25 @@ const ContractCreator: React.FC = () => {
                                     text-gray-300 
                                     leading-tight 
                                     `
-                                }
-                                {...register("triggerType")}
-                                defaultValue="default"
-                            >
-                                <option value="default">Select Trigger Type</option>
-                                <option value="click">Click</option>
-                                <option value="view">View</option>
-                                <option value="pageLoad">Page Load</option>
-                            </select>
-                        </div>
+                                    }
+                                    {...register("triggerType")}
+                                    defaultValue="default"
+                                >
+                                    <option value="default">Select Trigger Type</option>
+                                    <option value="click">Click</option>
+                                    <option value="view">View</option>
+                                    <option value="pageLoad">Page Load</option>
+                                </select>
+                            </div>
 
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Destination URL
-                            </label>
+                            <div className="mb-8">
+                                <label className="block text-gray-200 text-lg font-light mb-2" >
+                                    Destination URL
+                                </label>
 
-                            <input
-                                className={`
+                                <input
+                                    className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
                                     bg-gray-800 
@@ -177,15 +177,16 @@ const ContractCreator: React.FC = () => {
                                     text-gray-200 
                                     leading-tight 
                                     `
-                                }
-                                {...register("destinationURL")}
-                                type="text"
-                            />
-                        </div>
+                                    }
+                                    {...register("destinationURL")}
+                                    type="text"
+                                />
+                            </div>
 
 
-                        <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
-                    </form>
+                            <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </Layout>
