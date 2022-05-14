@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Ad } from '../../interfaces/app.interfaces';
 
 interface AdProp {

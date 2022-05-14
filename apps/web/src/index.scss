@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@100;300;400;500;600;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Baloo 2';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind height;
+@tailwind typography;
+@tailwind grid;
+@tailwind spacing;
+@tailwind layout;
+@tailwind sizing;
+@tailwind colors;
+@tailwind flexbox;
+@tailwind tables;
+@tailwind components;
+@tailwind tailwind;
+
+@layer utilities {
+    .border-spacing {
+        border-spacing: 0 1rem;
+    }
+}
