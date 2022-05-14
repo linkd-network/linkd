@@ -8,8 +8,8 @@ const RouteItemComponent: React.FC<routeItem> = ({path, text}: routeItem) => {
         className={({isActive}) => (
             isActive ?
                 `
-                    text-sm 
-                    px-4 ml-2 py-2 
+                    text-md 
+                    px-6 ml-4 py-2 
                     border rounded 
                     bg-blue-500
                     text-white border-blue-500 
@@ -19,8 +19,8 @@ const RouteItemComponent: React.FC<routeItem> = ({path, text}: routeItem) => {
                     hover:border-blue-500
                 ` :
                 `
-                    text-sm 
-                    px-4 ml-2 py-2 
+                    text-md 
+                    px-6 ml-4 py-2 
                     border rounded 
                     text-white border-white 
                     hover:text-blue-500 
