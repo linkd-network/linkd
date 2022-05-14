@@ -139,11 +139,12 @@ const ContractCreator: React.FC = () => {
                                     `
                                 }
                                 {...register("eventType")}
+                                defaultValue="default"
                             >
-                                <option selected>Select Trigger Type</option>
-                                <option value="1">Click</option>
-                                <option value="2">View</option>
-                                <option value="3">Page Load</option>
+                                <option value="default">Select Trigger Type</option>
+                                <option value="Click">Click</option>
+                                <option value="View">View</option>
+                                <option value="Page Load">Page Load</option>
                             </select>
                         </div>
 
