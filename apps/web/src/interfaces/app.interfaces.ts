@@ -6,11 +6,13 @@ export interface routeItem {
 }
 
 export interface CreateAdPayload {
-    coinsPerEvent: number;
-    name: string;
-    totalBudget: number
-    content: string
-    eventType: string
+    resourceType: string;
+    title: string;
+    contentURL: string;
+    budget: number
+    triggerType: string;
+    costPerAction: number;
+    destinationURL: string
 }
 
 export interface Ad {

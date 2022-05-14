@@ -7,8 +7,9 @@ const ContractCreator: React.FC = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async (data: FieldValues) => {
         const createAdPayload = data as CreateAdPayload;
-        createAdPayload.totalBudget = Number(createAdPayload.totalBudget);
-        createAdPayload.coinsPerEvent = Number(createAdPayload.coinsPerEvent);
+        createAdPayload.budget = Number(createAdPayload.budget);
+        createAdPayload.resourceType = 'img';
+        createAdPayload.costPerAction = Number(createAdPayload.costPerAction);
         postAd({ ad: createAdPayload });
     };
 
@@ -46,7 +47,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("name")}
+                                {...register("title")}
                                 type="text"
                             />
                         </div>
@@ -69,7 +70,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("coinsPerEvent")}
+                                {...register("costPerAction")}
                                 type="number"
                             />
                         </div>
@@ -92,7 +93,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("totalBudget")}
+                                {...register("budget")}
                                 type="number"
                             />
                         </div>
@@ -115,7 +116,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("content")}
+                                {...register("contentURL")}
                                 type="text"
                             />
                         </div>
@@ -138,15 +139,40 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("eventType")}
+                                {...register("triggerType")}
                                 defaultValue="default"
                             >
                                 <option value="default">Select Trigger Type</option>
-                                <option value="Click">Click</option>
-                                <option value="View">View</option>
-                                <option value="Page Load">Page Load</option>
+                                <option value="click">Click</option>
+                                <option value="view">View</option>
+                                <option value="pageLoad">Page Load</option>
                             </select>
                         </div>
+
+
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                Destination URL
+                            </label>
+
+                            <input
+                                className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("destinationURL")}
+                                type="text"
+                            />
+                        </div>
+
 
                         <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
                     </form>
