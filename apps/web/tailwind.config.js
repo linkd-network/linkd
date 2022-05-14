@@ -12,7 +12,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Tomorrow', ...defaultTheme.fontFamily.sans],
+      sans: ['Baloo 2', ...defaultTheme.fontFamily.sans],
     },
     extend: {
       flex: {

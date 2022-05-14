@@ -21,48 +21,47 @@ const ContractCreator: React.FC = () => {
         return response.json();
     }
 
-
     return (
         <Layout>
-            <div className="flex">
+            <div className="flex items-center justify-center">
                 <div className="flex-6/12">
                     {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-sm font-bold mb-2" >
                                 name
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("name")} type="text" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" {...register("name")} type="text" />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-sm font-bold mb-2" >
                                 coins Per Event
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("coinsPerEvent")} type="number" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" {...register("coinsPerEvent")} type="number" />
                         </div>
 
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-sm font-bold mb-2" >
                                 Total Budget
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("totalBudget")} type="number" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" {...register("totalBudget")} type="number" />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-sm font-bold mb-2" >
                                 Content
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("content")} type="text" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" {...register("content")} type="text" />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-sm font-bold mb-2" >
                                 Event Type
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("eventType")} type="text" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" {...register("eventType")} type="text" />
                         </div>
 
 
