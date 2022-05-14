@@ -26,24 +26,26 @@ const ContractCreator: React.FC = () => {
         <Layout>
             <div className="flex items-center justify-center">
                 <div className="flex-6/12">
-                    {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="p-12 shadow-md rounded-md bg-black">
+                        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+                        <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Campaign Title
-                            </label>
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    Campaign Title
+                                </label>
 
-                            <input
-                                className={`
+                                <input
+                                    className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 
+                                    bg-gray-900 
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
-                                    text-gray-200 
+                                    font-light
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                 }
@@ -52,21 +54,23 @@ const ContractCreator: React.FC = () => {
                             />
                         </div>
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                HBAR (ℏ) Per Event
-                            </label>
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    HBAR (ℏ) Per Event
+                                </label>
 
-                            <input
-                                className={`
+                                <input
+                                    className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 
+                                    bg-gray-900 
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
                                     text-gray-200 
+                                    font-light
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                 }
@@ -75,21 +79,23 @@ const ContractCreator: React.FC = () => {
                             />
                         </div>
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Campaign Budget
-                            </label>
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    Campaign Budget
+                                </label>
 
-                            <input
-                                className={`
+                                <input
+                                    className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 
+                                    bg-gray-900 
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
                                     text-gray-200 
+                                    font-light
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                 }
@@ -98,21 +104,23 @@ const ContractCreator: React.FC = () => {
                             />
                         </div>
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Content URL
-                            </label>
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    Content URL
+                                </label>
 
-                            <input
-                                className={`
+                                <input
+                                    className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 
+                                    bg-gray-900 
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
                                     text-gray-200 
+                                    font-light
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                 }
@@ -121,21 +129,23 @@ const ContractCreator: React.FC = () => {
                             />
                         </div>
 
-                        <div className="mb-8">
-                            <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Event Type
-                            </label>
-                            <select
-                                className={`
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    Event Type
+                                </label>
+                                <select
+                                    className={`
                                     form-select
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-800 bg-clip-padding bg-no-repeat
+                                    bg-gray-900 bg-clip-padding bg-no-repeat
                                     shadow 
                                     border border-black rounded 
                                     w-full 
                                     py-2 px-3 
                                     text-gray-200 
+                                    font-light
+                                    text-gray-300 
                                     leading-tight 
                                     `
                                 }

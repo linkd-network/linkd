@@ -17,8 +17,13 @@ export interface CreateAdPayload {
 
 export interface Ad {
     id: string;
-    name: string;
-    content: string;
+    resourceType: string;
+    title: string;
+    contentURL: string;
+    budget: number;
+    costPerAction: number;
+    triggerType: string;
+    destinationURL: string;
     creationDate: string;
 }
 
