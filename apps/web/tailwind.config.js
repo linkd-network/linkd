@@ -2,10 +2,11 @@ const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  darkMode: "class",
-  mode: "jit",
+  darkMode: 'class',
+  mode: 'jit',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js'
   ],
   purge: [
     './src/**/*.{js,jsx,ts,tsx}'
@@ -16,25 +17,25 @@ module.exports = {
     },
     extend: {
       flex: {
-        "1/12": "0 0 8.3333%",
-        "2/12": "0 0 16.6667%",
-        "3/12": "0 0 25%",
-        "6/12": "0 0 50%",
-        "9/12": "0 0 75%",
-        "10/12": "0 0 83.3333%",
-        "11/12": "0 0 91.6667%",
+        '1/12': '0 0 8.3333%',
+        '2/12': '0 0 16.6667%',
+        '3/12': '0 0 25%',
+        '6/12': '0 0 50%',
+        '9/12': '0 0 75%',
+        '10/12': '0 0 83.3333%',
+        '11/12': '0 0 91.6667%',
       },
       maxWidth: {
-        "1/12": "8.3333%",
-        "2/12": "16.6667%",
-        "3/12": "25%",
-        "6/12": "50%",
-        "9/12": "75%",
-        "10/12": "83.3333%",
-        "11/12": "91.6667%",
+        '1/12': '8.3333%',
+        '2/12': '16.6667%',
+        '3/12': '25%',
+        '6/12': '50%',
+        '9/12': '75%',
+        '10/12': '83.3333%',
+        '11/12': '91.6667%',
       },
       lineHeight: {
-        "0": "0",
+        '0': '0',
       },
     },
     colors : {
@@ -51,5 +52,7 @@ module.exports = {
       green: colors.emerald,
     }
   },
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 }

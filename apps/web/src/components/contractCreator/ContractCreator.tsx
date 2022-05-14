@@ -76,7 +76,7 @@ const ContractCreator: React.FC = () => {
 
                         <div className="mb-8">
                             <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Total Budget
+                                Campaign Budget
                             </label>
 
                             <input
@@ -99,7 +99,7 @@ const ContractCreator: React.FC = () => {
 
                         <div className="mb-8">
                             <label className="block text-gray-200 text-lg font-light mb-2" >
-                                Content
+                                Content URL
                             </label>
 
                             <input
