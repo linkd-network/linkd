@@ -15,4 +15,5 @@ export interface PostAdPayload {
     name: string;
     totalBudget: number;
     content: string;
+    eventType: string;
 }

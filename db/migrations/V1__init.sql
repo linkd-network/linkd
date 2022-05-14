@@ -10,3 +10,9 @@ CREATE TABLE IF NOT EXISTS ad(
   content VARCHAR,	
   creationDate TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS account(
+  id VARCHAR PRIMARY KEY,
+  accountId VARCHAR,
+  username VARCHAR
+);

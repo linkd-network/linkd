@@ -14,8 +14,10 @@
     "http-proxy-middleware": "^2.0.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-hook-form": "^7.31.1",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "sass": "^1.50.1",
+    "sass": "^1.51.0",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
@@ -25,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:4000",
+  "proxy": "http://localhost:4001",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -43,5 +45,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.13",
+    "tailwindcss": "^3.0.24"
   }
 }

@@ -5,10 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdsController } from './controllers/ads.controller';
 import { AdService } from './services/ad/ad.service';
 import { HederaAPIService } from '../../shared/services/hederaAPI.service';
+import { AccountsForDemo } from '../../model/accountForDemo.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Ad])
+        TypeOrmModule.forFeature([Ad, AccountsForDemo])
 
     ],
     controllers: [

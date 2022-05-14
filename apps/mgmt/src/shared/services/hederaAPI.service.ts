@@ -16,16 +16,18 @@ import {
     Hbar,
     TokenId,
     PrivateKey,
-    PublicKey
+    PublicKey,
+    TransferTransaction,
+    ContractCallQuery,
+    ContractInfoQuery
 } from '@hashgraph/sdk'
 import { Injectable } from '@nestjs/common';
 const fs = require("fs");
 const path = require("path");
 
-const HEDERA_ACCOUNTID = '0.0.34280259'
-const HEDERA_PUBLICKEY = '302a300506032b65700321003e0ad6a091bfb42a25ec5859a4003474cc4723e55d3107c7e6493e9109de3c99'
-const HEDERA_PRIVATEKEY = '302e020100300506032b6570042204208ffe69118a4db78c83e54b268ccc1164c9e7e66330861e46f40143cfd4eadea9'
-
+const HEDERA_ACCOUNTID = '0.0.34804952'
+const HEDERA_PUBLICKEY = '302a300506032b6570032100d3fde10504d896978ed49bde52eeb0b2c13bb066fee7caca69c94f5bf4c52c28'
+const HEDERA_PRIVATEKEY = '302e020100300506032b657004220420091975dc492b0ce5e9f0c20fca84457cf6688f5bf54bd65f9d4bf68b95620ce2'
 
 @Injectable()
 export class HederaAPIService {
@@ -35,24 +37,22 @@ export class HederaAPIService {
     );
 
 
-    public async triggerPayment({ contractId, accountId }: { contractId: ContractId, accountId: AccountId }) {
+    public async triggerEvent({ contractId, eventType }: { contractId: ContractId, accountId: AccountId, eventType: string }) {
         const { treasuryId, treasuryKey } = this.getTreasuryDetails();
 
         const contractExecTx2 = await new ContractExecuteTransaction()
             .setContractId(contractId)
             .setGas(3000000)
             .setFunction(
-                "tokenTransfer",
+                "eventTrigger",
                 new ContractFunctionParameters()
-                    .addAddress(treasuryId.toSolidityAddress())
-                    .addAddress(accountId.toSolidityAddress())
+                    .addString(eventType)
             )
             .freezeWith(this.client);
         const contractExecSign2 = await contractExecTx2.sign(treasuryKey);
         const contractExecSubmit2 = await contractExecSign2.execute(this.client);
         const contractExecRx2 = await contractExecSubmit2.getReceipt(this.client);
-        console.log('payment good');
-
+        await this.getContractBalance({ contractId })
     }
 
     public async createAccount() {
@@ -61,7 +61,7 @@ export class HederaAPIService {
 
         const newAccount = await new AccountCreateTransaction()
             .setKey(newAccountPublicKey)
-            .setInitialBalance(Hbar.fromTinybars(1000))
+            .setInitialBalance(new Hbar(1000))
             .execute(this.client)
 
 
@@ -73,20 +73,19 @@ export class HederaAPIService {
 
     public async associateSmartContract({ contractId, accountId, accountKey }: { accountKey: PrivateKey; contractId: ContractId, accountId: TokenId }) {
 
+
         const contractExecTx1 = await new ContractExecuteTransaction()
             .setContractId(contractId)
             .setGas(3000000)
             .setFunction(
-                "tokenAssociate",
+                "associateSubscriber",
                 new ContractFunctionParameters().addAddress(accountId.toSolidityAddress())
             )
             .freezeWith(this.client);
         const contractExecSign1 = await contractExecTx1.sign(accountKey);
-        console.log('contractExecSign1');
 
         const contractExecSubmit1 = await contractExecSign1.execute(this.client);
         const contractExecRx1 = await contractExecSubmit1.getReceipt(this.client);
-
         console.log('contract is associated');
 
     }
@@ -120,42 +119,31 @@ export class HederaAPIService {
         return { tokenId, tokenIdString: tokenId.toStringWithChecksum(this.client) };
     }
 
-    public async publishSmartContract({ amountPerEvent, tokenAddressSol, tokenId }) {
+    public async publishSmartContract({ amountPerEvent, budget, eventType }: { budget: number, amountPerEvent: number, eventType: string }) {
         const { bytecodeFileId } = await this.createSolidityFileInHedera();
         const { contractId } = await this.createSmartContract({
             bytecodeFileId,
             amountPerEvent,
-            tokenAddressSol,
-            tokenId
+            eventType
         })
+
+        const { status } = await this.loadHbarsToContract({ contractId, budget });
+        await this.getContractBalance({ contractId });
         return { contractId: contractId.toStringWithChecksum(this.client) };
     }
 
-    private async createSmartContract({ bytecodeFileId, amountPerEvent, tokenAddressSol, tokenId }): Promise<{ contractId: TokenId }> {
-        const { treasuryId, treasuryKey } = this.getTreasuryDetails();
+    private async createSmartContract({ bytecodeFileId, amountPerEvent, eventType }): Promise<{ contractId: ContractId }> {
 
         // Create the smart contract
         const contractInstantiateTx = new ContractCreateTransaction()
             .setBytecodeFileId(bytecodeFileId)
             .setGas(3000000)
-            .setConstructorParameters(new ContractFunctionParameters().addAddress(tokenAddressSol).addInt64(amountPerEvent));
+            .setConstructorParameters(new ContractFunctionParameters().addUint256(amountPerEvent).addString(eventType));
         const contractInstantiateSubmit = await contractInstantiateTx.execute(this.client);
         const contractInstantiateRx = await contractInstantiateSubmit.getReceipt(this.client);
 
         const contractId = contractInstantiateRx.contractId;
 
-
-        const contractAddress = contractId.toSolidityAddress();
-
-
-        // Update the fungible so the smart contract manages the supply
-        const tokenUpdateTx = await new TokenUpdateTransaction()
-            .setTokenId(tokenId)
-            .setSupplyKey(contractId)
-            .freezeWith(this.client)
-            .sign(treasuryKey);
-        const tokenUpdateSubmit = await tokenUpdateTx.execute(this.client);
-        const tokenUpdateRx = await tokenUpdateSubmit.getReceipt(this.client);
         return { contractId }
     }
 
@@ -189,13 +177,55 @@ export class HederaAPIService {
         console.log(`- Content added: ${fileAppendRx.status} \n`);
         return { bytecodeFileId };
     }
-    public async getTreasuryBalance({ tokenId }: { tokenId: TokenId }) {
-        const { treasuryId } = this.getTreasuryDetails();
-        return await this.checkBalance({ tokenId, accountId: treasuryId })
+
+
+    public async checkBalance({ accountId }: { accountId: AccountId }) {
+        //Create the account balance query
+        const query = new AccountBalanceQuery()
+            .setAccountId(accountId);
+
+        //Submit the query to a Hedera network
+        const accountBalance = await query.execute(this.client);
+
+        //Print the balance of hbars
+        return { balance: accountBalance.hbars.toString() }
     }
-    public async checkBalance({ accountId, tokenId }: { accountId: AccountId, tokenId: TokenId }) {
-        const balanceCheckTx = await new AccountBalanceQuery().setAccountId(accountId).execute(this.client);
-        return balanceCheckTx.tokens._map.get(tokenId.toString()) ?? 0;
+
+    //v2.0.7    }
+
+    public async loadHbarsToContract({ contractId, budget }: { contractId: ContractId, budget: number }) {
+        const { treasuryId, treasuryKey } = this.getTreasuryDetails();
+
+
+        // Transfer HBAR to smart contract using TransferTransaction()
+        const contractExecuteTx = new TransferTransaction()
+            .addHbarTransfer(treasuryId, -budget)
+            .addHbarTransfer(<any>contractId, budget)
+            .freezeWith(this.client);
+        const contractExecuteSign = await contractExecuteTx.sign(treasuryKey);
+        const contractExecuteSubmit = await contractExecuteSign.execute(this.client);
+        const contractExecuteRx = await contractExecuteSubmit.getReceipt(this.client);
+        console.log(`- Crypto transfer to contract: ${contractExecuteRx.status} \n`);
+
+        return { status: contractExecuteRx.status };
+    }
+
+    public async getContractDetails({ contractId }: { contractId: ContractId }) {
+        const contractQueryTx = new ContractCallQuery()
+            .setContractId(contractId)
+            .setGas(3000000)
+            .setQueryPayment(new Hbar(1))
+            .setFunction("getPastEvents");
+        const contractQuerySubmit = await contractQueryTx.execute(this.client);
+        const contractQueryResult: string = contractQuerySubmit.getString();
+        const output: string[] = contractQueryResult.slice(0, -1).split(',');
+        return { events: output };
+    }
+
+
+    public async getContractBalance({ contractId }: { contractId: ContractId }) {
+        const cCheck = await new ContractInfoQuery().setContractId(contractId).execute(this.client);
+        return { balance: cCheck.balance.toString() }
     }
 
 }

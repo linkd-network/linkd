@@ -10,8 +10,10 @@ export class AdsController {
 
     @Post('publish')
     async publishAd(@Body() payload: PostAdPayload) {
+        console.log(payload);
+        
         await this.adService.publishNewAd({ ad: payload });
-        return true;
+        return { success: true };
     }
 
     @Post('subscribe')
@@ -20,12 +22,18 @@ export class AdsController {
     }
 
     @Post('triggerEvent')
-    async triggerEvent(@Body() { contractId, accountId }: { contractId: string, accountId: string }) {
-        return await this.adService.triggerEvent({ contractId, accountId });
+    async triggerEvent(@Body() { contractId, accountId, eventType }: { contractId: string, accountId: string, eventType: string }) {
+        return await this.adService.triggerEvent({ contractId, accountId, eventType });
     }
 
     @Get()
     async getAllAds() {
         return this.adService.getAdsForUI();
     }
+
+    @Get('accountView')
+    async getAccountBalance() {
+        return this.adService.getContractState();
+    }
+
 }
