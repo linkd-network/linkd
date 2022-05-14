@@ -1,9 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {MonitorPayload} from '../../interfaces/app.interfaces';
+import React, { useEffect, useState } from 'react';
+import { MonitorPayload } from '../../interfaces/app.interfaces';
 import Layout from "../Layout/Layout";
 
+
+interface MonitorData extends MonitorPayload {
+    sum: {
+        click: number;
+        view: number;
+        pageLoad: number;
+    }
+}
 const Monitor: React.FC = () => {
-    const [monitorPayload, setMonitorPayload] = useState<MonitorPayload>();
+    const [monitorPayload, setMonitorPayload] = useState<MonitorData>();
 
     useEffect(() => {
         getData();
@@ -12,7 +20,16 @@ const Monitor: React.FC = () => {
     const getData = async () => {
         const payload: MonitorPayload = await fetch('/mgmt/v1/ads/accountView')
             .then(res => res.json());
-        setMonitorPayload(payload)
+        let eventSum: any = {
+            click: 0,
+            view: 0,
+            pageLoad: 0
+        }
+        for (const event of payload.events) {
+            eventSum[event]++
+        }
+        let data: MonitorData = { ...payload, sum: eventSum }
+        setMonitorPayload(data)
     }
 
     return (
@@ -51,7 +68,11 @@ const Monitor: React.FC = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white">2</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].name} Subscriber</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].amount}</td>
-                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.events.map((eventType) => eventType)}</td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">
+                                            <div>{monitorPayload?.sum.click} Clicks</div>
+                                            <div>{monitorPayload?.sum.view} Views</div>
+                                            <div>{monitorPayload?.sum.pageLoad} Page Loads</div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
