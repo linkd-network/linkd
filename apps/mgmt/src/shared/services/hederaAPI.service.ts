@@ -25,9 +25,10 @@ import { Injectable } from '@nestjs/common';
 const fs = require("fs");
 const path = require("path");
 
-const HEDERA_ACCOUNTID = '0.0.34804952'
-const HEDERA_PUBLICKEY = '302a300506032b6570032100d3fde10504d896978ed49bde52eeb0b2c13bb066fee7caca69c94f5bf4c52c28'
-const HEDERA_PRIVATEKEY = '302e020100300506032b657004220420091975dc492b0ce5e9f0c20fca84457cf6688f5bf54bd65f9d4bf68b95620ce2'
+const HEDERA_ACCOUNTID = process.env.HEDERA_ACCOUNTID;
+const HEDERA_PUBLICKEY = process.env.HEDERA_PUBLICKEY;
+const HEDERA_PRIVATEKEY = process.env.HEDERA_PRIVATEKEY;
+console.log();
 
 @Injectable()
 export class HederaAPIService {

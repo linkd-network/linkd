@@ -18,10 +18,10 @@ export class AdService {
     ) { }
 
     public async getAdsForUI() {
-        return await this.repo.find({ select: ['content', 'id', 'name', 'creationDate'] })
+        return await this.repo.find({ select: ['contentURL', 'id', 'title', 'creationDate', 'resourceType', 'triggerType', 'costPerAction', 'budget', 'destinationURL'] })
     }
     public async getContractState() {
-        const contracts = await this.repo.find({ select: ['content', 'id', 'name', 'contractId', 'creationDate'] })
+        const contracts = await this.repo.find({ select: ['contentURL', 'id', 'title', 'contractId', 'creationDate'] })
         const accounts = await this.accountRepo.find({});
 
 
@@ -32,7 +32,6 @@ export class AdService {
         for (const account of accounts) {
 
             const { balance } = await this.hederaAPIService.checkBalance({ accountId: AccountId.fromString(account.accountId) });
-            console.log(balance);
             acountBalanceList.push({
                 name: account.username,
                 amount: balance
@@ -42,10 +41,6 @@ export class AdService {
 
 
         return { events, contractBalnce: balance, accounts: acountBalanceList };
-    }
-
-    public async getAccountBalance() {
-        return await this.repo.find({ select: ['content', 'id', 'name', 'creationDate'] })
     }
 
 
@@ -67,7 +62,7 @@ export class AdService {
 
         account.id = uuidv4();
         account.accountId = accountIdStr;
-        account.username = res.name;
+        account.username = res.title;
 
         await this.accountRepo.insert(account);
 
@@ -81,19 +76,27 @@ export class AdService {
     public async publishNewAd({ ad }: { ad: PostAdPayload }) {
 
         const { contractId } = await this.hederaAPIService.publishSmartContract({
-            budget: ad.totalBudget,
-            eventType: ad.eventType,
-            amountPerEvent: ad.coinsPerEvent
+            budget: ad.budget,
+            eventType: ad.triggerType,
+            amountPerEvent: ad.costPerAction
         })
 
         const migratedAd = new Ad()
 
 
         migratedAd.id = uuidv4();
-        migratedAd.content = ad.content;
-        migratedAd.contractId = contractId;
+
+        migratedAd.resourceType = ad.resourceType;
+        migratedAd.title = ad.title;
+        migratedAd.contentURL = ad.contentURL;
+        migratedAd.budget = ad.budget;
+        migratedAd.costPerAction = ad.costPerAction;
+        migratedAd.triggerType = ad.triggerType;
+        migratedAd.destinationURL = ad.destinationURL;
         migratedAd.creationDate = new Date();
-        migratedAd.name = ad.name;
+        migratedAd.contractId = contractId;
+
+
 
         await this.repo.insert(migratedAd)
 
