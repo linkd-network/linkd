@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, useRoutes } from "react-router-
 import Toolbar from './components/toolbar/Toolbar';
 import ContractCreator from './components/contractCreator/ContractCreator';
 import SubscribePage from './components/SubscribePage/SubscribePage';
+import Monitor from './components/Monitor/Monitor';
 
 
 
@@ -13,6 +14,8 @@ const AppRouter = () => {
     { path: "/", element: <ContractCreator /> },
     { path: "create", element: <ContractCreator /> },
     { path: "subscribe", element: <SubscribePage /> },
+    { path: "monitor", element: <Monitor /> },
+    
     
     // ...
   ]);

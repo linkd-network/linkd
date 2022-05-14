@@ -19,3 +19,18 @@ export interface Ad {
     content: string;
     creationDate: string;
 }
+
+export interface SubscribeResponse {
+    contractId: string;
+    accountId: string;
+}
+
+export interface MonitorPayload {
+    events: string[];
+    contractBalnce: string,
+    accounts: MonitorAccountPayload[];
+}
+export interface MonitorAccountPayload {
+    name: string;
+    amount: string;
+}

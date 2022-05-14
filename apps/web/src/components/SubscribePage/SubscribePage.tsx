@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Ad } from '../../interfaces/app.interfaces';
+import { Ad, SubscribeResponse } from '../../interfaces/app.interfaces';
 import AdItem from '../AdItem/AdItem';
 
 
@@ -12,14 +12,20 @@ const SubscribePage: React.FC = () => {
     }, [])
 
 
-    const getAds = () => {
-        fetch('/mgmt/v1/ads')
-            .then(res => res.json())
-            .then((res) => {
-                console.log(res);
+    const getAds = async () => {
+        const ads = await fetch('/mgmt/v1/ads')
+            .then(res => res.json());
+        setAds(ads);
+    }
+    const subscribeToAd = async (ad: Ad) => {
 
-                setAds(res);
-            });
+        const response: SubscribeResponse = await fetch('mgmt/v1/ads/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: ad.id })
+        }).then(res => res.json());
+
+        console.log(response);
     }
 
 
@@ -29,6 +35,7 @@ const SubscribePage: React.FC = () => {
             <div className="card-container flex flex-wrap gap-4	">
                 {ads?.map((ad) => <AdItem
                     ad={ad}
+                    Subscribe={subscribeToAd}
                     key={ad.id}
                 />
                 )}
