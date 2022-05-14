@@ -36,7 +36,7 @@ const ContractCreator: React.FC = () => {
                             <input
                                 className={`
                                     appearance-none 
-                                    focus:outline-none focus:shadow-outline
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
                                     bg-gray-800 
                                     shadow 
                                     border border-black rounded 
@@ -46,7 +46,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("eventType")}
+                                {...register("name")}
                                 type="text"
                             />
                         </div>
@@ -59,7 +59,7 @@ const ContractCreator: React.FC = () => {
                             <input
                                 className={`
                                     appearance-none 
-                                    focus:outline-none focus:shadow-outline
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
                                     bg-gray-800 
                                     shadow 
                                     border border-black rounded 
@@ -69,7 +69,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("eventType")}
+                                {...register("coinsPerEvent")}
                                 type="number"
                             />
                         </div>
@@ -82,7 +82,7 @@ const ContractCreator: React.FC = () => {
                             <input
                                 className={`
                                     appearance-none 
-                                    focus:outline-none focus:shadow-outline
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
                                     bg-gray-800 
                                     shadow 
                                     border border-black rounded 
@@ -92,7 +92,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("eventType")}
+                                {...register("totalBudget")}
                                 type="number"
                             />
                         </div>
@@ -105,7 +105,7 @@ const ContractCreator: React.FC = () => {
                             <input
                                 className={`
                                     appearance-none 
-                                    focus:outline-none focus:shadow-outline
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
                                     bg-gray-800 
                                     shadow 
                                     border border-black rounded 
@@ -115,7 +115,7 @@ const ContractCreator: React.FC = () => {
                                     leading-tight 
                                     `
                                 }
-                                {...register("eventType")}
+                                {...register("content")}
                                 type="text"
                             />
                         </div>
@@ -124,11 +124,12 @@ const ContractCreator: React.FC = () => {
                             <label className="block text-gray-200 text-lg font-light mb-2" >
                                 Event Type
                             </label>
-                            <input
+                            <select
                                 className={`
+                                    form-select
                                     appearance-none 
-                                    focus:outline-none focus:shadow-outline
-                                    bg-gray-800 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 bg-clip-padding bg-no-repeat
                                     shadow 
                                     border border-black rounded 
                                     w-full 
@@ -138,11 +139,15 @@ const ContractCreator: React.FC = () => {
                                     `
                                 }
                                 {...register("eventType")}
-                                type="text"
-                            />
+                            >
+                                <option selected>Select Trigger Type</option>
+                                <option value="1">Click</option>
+                                <option value="2">View</option>
+                                <option value="3">Page Load</option>
+                            </select>
                         </div>
 
-                        <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" />
+                        <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
                     </form>
                 </div>
             </div>
