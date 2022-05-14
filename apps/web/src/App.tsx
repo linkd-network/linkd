@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './App.scss';
-import { BrowserRouter as Router, Routes, Route, useRoutes } from "react-router-dom";
+import React, {Fragment} from 'react';
+import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 
 import Toolbar from './components/toolbar/Toolbar';
 import ContractCreator from './components/contractCreator/ContractCreator';
 import SubscribePage from './components/SubscribePage/SubscribePage';
 import Monitor from './components/Monitor/Monitor';
-
-
 
 const AppRouter = () => {
   let routes = useRoutes([
@@ -15,40 +12,19 @@ const AppRouter = () => {
     { path: "create", element: <ContractCreator /> },
     { path: "subscribe", element: <SubscribePage /> },
     { path: "monitor", element: <Monitor /> },
-    
-    
-    // ...
   ]);
   return routes;
 };
 
-
-
 const App: React.FC = () => {
-  const [myVar, setMyVar] = useState();
-
-  useEffect(() => {
-    fetch('/mgmt/v1/health-check')
-      .then(res => res.json())
-      .then((res) => {
-        setMyVar(res)
-      });
-  }, [])
-
-
   return (
-    <div>
-
-      <Toolbar ></Toolbar>
-
+    <Fragment>
       <Router>
+        <Toolbar />
         <AppRouter />
       </Router>
-
-    </div>
-
-
-  )
-}
+    </Fragment>
+  );
+};
 
 export default App

@@ -1,5 +1,6 @@
 {
 	"dependencies": {
-		"@hashgraph/sdk": "^2.13.1"
+		"@hashgraph/sdk": "^2.13.1",
+		"tw-elements": "1.0.0-alpha12"
 	}
 }

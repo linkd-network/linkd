@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './ContractCreator.scss';
+import React from 'react';
 import { FieldValues, useForm } from "react-hook-form";
 import { CreateAdPayload } from '../../interfaces/app.interfaces';
-
-
-
-
+import Layout from "../Layout/Layout";
 
 const ContractCreator: React.FC = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -25,51 +21,138 @@ const ContractCreator: React.FC = () => {
         return response.json();
     }
 
-
     return (
-        /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Layout>
+            <div className="flex items-center justify-center">
+                <div className="flex-6/12">
+                    {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" >
-                    name
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("name")} type="text" />
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                Campaign Title
+                            </label>
+
+                            <input
+                                className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("name")}
+                                type="text"
+                            />
+                        </div>
+
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                HBAR (ℏ) Per Event
+                            </label>
+
+                            <input
+                                className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("coinsPerEvent")}
+                                type="number"
+                            />
+                        </div>
+
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                Campaign Budget
+                            </label>
+
+                            <input
+                                className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("totalBudget")}
+                                type="number"
+                            />
+                        </div>
+
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                Content URL
+                            </label>
+
+                            <input
+                                className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("content")}
+                                type="text"
+                            />
+                        </div>
+
+                        <div className="mb-8">
+                            <label className="block text-gray-200 text-lg font-light mb-2" >
+                                Event Type
+                            </label>
+                            <select
+                                className={`
+                                    form-select
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-800 bg-clip-padding bg-no-repeat
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    leading-tight 
+                                    `
+                                }
+                                {...register("eventType")}
+                                defaultValue="default"
+                            >
+                                <option value="default">Select Trigger Type</option>
+                                <option value="Click">Click</option>
+                                <option value="View">View</option>
+                                <option value="Page Load">Page Load</option>
+                            </select>
+                        </div>
+
+                        <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
+                    </form>
+                </div>
             </div>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" >
-                    coins Per Event
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("coinsPerEvent")} type="number" />
-            </div>
-
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" >
-                    Total Budget
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("totalBudget")} type="number" />
-            </div>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" >
-                    Content
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("content")} type="text" />
-            </div>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" >
-                    Event Type
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {...register("eventType")} type="text" />
-            </div>
-
-
-
-            <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" />
-        </form>
+        </Layout>
     );
 }
 

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Baloo 2', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.h-100vh {
+    height: calc(100vh - 3.5rem);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind height;
+@tailwind typography;
+@tailwind grid;
+@tailwind spacing;
+@tailwind layout;
+@tailwind sizing;
+@tailwind colors;
+@tailwind flexbox;
+@tailwind tables;
+@tailwind components;
+@tailwind tailwind;
+
+@layer utilities {
+    .border-spacing {
+        border-spacing: 0 1rem;
+    }
+}
