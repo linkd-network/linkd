@@ -11,9 +11,11 @@ export interface TrackerEvent {
 
 
 export interface PostAdPayload {
-    coinsPerEvent: number
-    name: string;
-    totalBudget: number;
-    content: string;
-    eventType: string;
+    resourceType: string;
+    title: string;
+    contentURL: string;
+    budget: number
+    triggerType: string;
+    costPerAction: number;
+    destinationURL: string
 }

@@ -10,7 +10,6 @@ export class AdsController {
 
     @Post('publish')
     async publishAd(@Body() payload: PostAdPayload) {
-        console.log(payload);
         
         await this.adService.publishNewAd({ ad: payload });
         return { success: true };

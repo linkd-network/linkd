@@ -7,11 +7,11 @@ import { TrackApiModule } from './modules/track-api/track-api.module';
 
 require('dotenv').config();
 
-const DB_HOST = process.env.DB_HOST
-const DB_PORT = process.env.DB_PORT
-const DB_USERNAME = process.env.DB_USERNAME
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB = process.env.DB
+const DB_HOST = process.env.DB_HOST;
+const DB_PORT = process.env.DB_PORT;
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB = process.env.DB;
 
 @Module({
   imports: [
@@ -31,5 +31,5 @@ const DB = process.env.DB
   ],
   controllers: [AppController],
   providers: [],
-})  
+})
 export class AppModule { }
