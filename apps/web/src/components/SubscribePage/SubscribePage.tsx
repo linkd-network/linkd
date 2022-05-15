@@ -6,7 +6,7 @@ import SubscribeModal from '../SubscribeModal/SubscribeModal';
 
 const SubscribePage: React.FC = () => {
     const [ads, setAds] = useState<Ad[]>([]);
-    const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: 'Hola' });
+    const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
 
     useEffect(() => {
         getAds();

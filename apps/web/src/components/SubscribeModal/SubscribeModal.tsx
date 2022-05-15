@@ -5,7 +5,7 @@ interface ModalProp {
     title: string;
     closeCallBack: () => void
 }
-const SubscribeModal: React.FC<ModalProp> = ({ showModal, title,closeCallBack }: ModalProp) => {
+const SubscribeModal: React.FC<ModalProp> = ({ showModal, title, closeCallBack }: ModalProp) => {
 
     return (
         <>
@@ -34,7 +34,7 @@ const SubscribeModal: React.FC<ModalProp> = ({ showModal, title,closeCallBack }:
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto text-white">
                                     <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                                        Please set this code on your HTML head tag
+                                        Copy and paste this code as the first item into the head of every webpage you want to measure
                                     </p>
                                     <pre className="chroma language-html">
                                         <code className=" language-html">
@@ -46,12 +46,34 @@ const SubscribeModal: React.FC<ModalProp> = ({ showModal, title,closeCallBack }:
                                                 <span className="token attr-value">
                                                     <span className="token punctuation attr-equals">=</span>
                                                     <span className="token punctuation">"</span>
-                                                    SomUtl
+                                                    https://www.linkdSC.com/track/js?id=1051s3934x
                                                     <span className="token punctuation">"</span>
                                                 </span>
                                                 <span className="token punctuation">&gt;</span>
                                             </span>
 
+
+                                            <span className="token tag">
+                                                <span className="token tag">
+                                                    <span className="token punctuation">
+                                                        &lt;</span>/script</span>
+                                                <span className="token punctuation">&gt;</span>
+                                            </span>
+
+                                            <br />
+
+                                            <span className="token tag">
+                                                <span className="token tag">
+                                                    <span className="token punctuation">
+                                                        &lt;</span>script</span>
+
+                                                <span className="token punctuation">&gt;</span>
+                                            </span>
+                                            <br />
+                                            {
+                                            `    window.LLayer = window.LLayer || []; \n    function linkdTag(){LLayer.push(args);} \n    linkdTag('js', new Date()); \n    linkdTag('conf', '1051s3934x');`
+                                            }
+                                            <br />
 
                                             <span className="token tag">
                                                 <span className="token tag">

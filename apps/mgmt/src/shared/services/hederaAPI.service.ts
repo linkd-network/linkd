@@ -62,7 +62,7 @@ export class HederaAPIService {
 
         const newAccount = await new AccountCreateTransaction()
             .setKey(newAccountPublicKey)
-            .setInitialBalance(new Hbar(1000))
+            .setInitialBalance(new Hbar(0))
             .execute(this.client)
 
 

@@ -73,12 +73,17 @@ export class AdService {
         }
     }
 
+    public async clearAllAd() {
+        await this.repo.delete({});
+        await this.accountRepo.delete({});
+    }
+
     public async publishNewAd({ ad }: { ad: PostAdPayload }) {
 
         const { contractId } = await this.hederaAPIService.publishSmartContract({
             budget: ad.budget,
             eventType: ad.triggerType,
-            amountPerEvent: ad.costPerAction
+            amountPerEvent: ad.costPerAction * 100000000
         })
 
         const migratedAd = new Ad()

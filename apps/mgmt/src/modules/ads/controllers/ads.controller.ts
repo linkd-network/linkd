@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { PostAdPayload } from 'src/app.models';
 import { Ad } from 'src/model/ad.entity';
 import { AdService } from '../services/ad/ad.service';
@@ -33,6 +33,11 @@ export class AdsController {
     @Get('accountView')
     async getAccountBalance() {
         return this.adService.getContractState();
+    }
+
+    @Delete('')
+    async deleteAllData() {
+        return this.adService.clearAllAd();
     }
 
 }
