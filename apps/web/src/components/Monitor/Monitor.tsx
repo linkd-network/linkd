@@ -45,7 +45,10 @@ const Monitor: React.FC = () => {
                                             #
                                         </th>
                                         <th scope="col" className="text-md font-medium text-white px-6 py-4 text-left">
-                                            Account
+                                            Campaign
+                                        </th>
+                                        <th scope="col" className="text-md font-medium text-white px-6 py-4 text-left">
+                                            Subscribers
                                         </th>
                                         <th scope="col" className="text-md font-medium text-white px-6 py-4 text-left">
                                             HBAR (ℏ)
@@ -63,6 +66,7 @@ const Monitor: React.FC = () => {
                                     <tr className="bg-gray-900 border-b border-gray-800">
                                         <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white">1</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].name}</td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap"></td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.contractBalnce}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.view ?? 0}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.click ?? 0}</td>
@@ -70,7 +74,8 @@ const Monitor: React.FC = () => {
 
                                     <tr className="bg-gray-900 border-b border-gray-800">
                                         <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white"></td>
-                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].name} Subscriber</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white"></td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].userId}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].amount}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.view ?? 0}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.click ?? 0}</td>

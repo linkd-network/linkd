@@ -40,4 +40,5 @@ export interface MonitorPayload {
 export interface MonitorAccountPayload {
     name: string;
     amount: string;
+    userId: string;
 }
