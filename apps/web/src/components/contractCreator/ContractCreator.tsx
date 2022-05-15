@@ -135,10 +135,9 @@ const ContractCreator: React.FC = () => {
                                 </label>
                                 <select
                                     className={`
-                                    form-select
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-900 bg-clip-padding bg-no-repeat
+                                    bg-gray-900
                                     shadow 
                                     border border-black rounded 
                                     w-full 
@@ -152,7 +151,7 @@ const ContractCreator: React.FC = () => {
                                     {...register("triggerType")}
                                     defaultValue="default"
                                 >
-                                    <option value="default">Select Trigger Type</option>
+                                    <option value="default"></option>
                                     <option value="click">Click</option>
                                     <option value="view">View</option>
                                     <option value="pageLoad">Page Load</option>
@@ -161,7 +160,7 @@ const ContractCreator: React.FC = () => {
 
 
                             <div className="mb-8">
-                                <label className="block text-gray-200 text-lg font-light mb-2" >
+                                <label className="block text-gray-400 text-lg font-light mb-2">
                                     Destination URL
                                 </label>
 
@@ -184,7 +183,7 @@ const ContractCreator: React.FC = () => {
                             </div>
 
 
-                            <input className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
+                            <input className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
                         </form>
                     </div>
                 </div>

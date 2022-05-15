@@ -52,7 +52,5 @@ module.exports = {
       green: colors.emerald,
     }
   },
-  plugins: [
-    require('tw-elements/dist/plugin')
-  ],
+  plugins: [],
 }

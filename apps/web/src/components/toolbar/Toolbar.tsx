@@ -10,12 +10,12 @@ const Toolbar: React.FC = () => {
                 path: '/create'
             },
             {
-                text: 'Subscribe',
-                path: '/subscribe'
+                text: 'Market Place',
+                path: '/market-place'
             },
             {
-                text: 'Monitor',
-                path: '/monitor'
+                text: 'Analytics',
+                path: '/analytics'
             }
         ]);
 
