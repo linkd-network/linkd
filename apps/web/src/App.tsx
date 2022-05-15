@@ -10,8 +10,8 @@ const AppRouter = () => {
   let routes = useRoutes([
     { path: "/", element: <ContractCreator /> },
     { path: "create", element: <ContractCreator /> },
-    { path: "subscribe", element: <SubscribePage /> },
-    { path: "monitor", element: <Monitor /> },
+    { path: "market-place", element: <SubscribePage /> },
+    { path: "analytics", element: <Monitor /> },
   ]);
   return routes;
 };
