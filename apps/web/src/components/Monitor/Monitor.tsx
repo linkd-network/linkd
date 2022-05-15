@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import { MonitorPayload } from '../../interfaces/app.interfaces';
 import Layout from "../Layout/Layout";
 
@@ -34,9 +34,7 @@ const Monitor: React.FC = () => {
 
     return (
         <Layout>
-            <button onClick={getData} className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600"> Reload</button>
-
-            {monitorPayload &&< div className="flex flex-col">
+            {monitorPayload && <Fragment>< div className="flex flex-col">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="overflow-hidden">
@@ -53,7 +51,10 @@ const Monitor: React.FC = () => {
                                             HBAR (ℏ)
                                         </th>
                                         <th scope="col" className="text-md font-medium text-white px-6 py-4 text-left">
-                                            Events
+                                            Views
+                                        </th>
+                                        <th scope="col" className="text-md font-medium text-white px-6 py-4 text-left">
+                                            Clicks
                                         </th>
                                     </tr>
                                 </thead>
@@ -63,26 +64,27 @@ const Monitor: React.FC = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white">1</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].name}</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.contractBalnce}</td>
-                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">
-                                            <div>{monitorPayload?.sum.click ?? 0} Clicks</div>
-                                            <div>{monitorPayload?.sum.view ?? 0} Views</div>
-                                        </td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.view ?? 0}</td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.click ?? 0}</td>
                                     </tr>
 
                                     <tr className="bg-gray-900 border-b border-gray-800">
-                                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white">2</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-white"></td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].name} Subscriber</td>
                                         <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.accounts[monitorPayload?.accounts.length - 1].amount}</td>
-                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap"></td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.view ?? 0}</td>
+                                        <td className="text-md text-white font-light px-6 py-4 whitespace-nowrap">{monitorPayload?.sum.click ?? 0}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>}
+            </div>
 
-
+            <div className="flex items-center justify-end mt-8">
+                <button onClick={() => getData()} className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600"> Reload</button>
+            </div></Fragment>}
         </Layout>
     );
 }

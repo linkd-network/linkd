@@ -6,11 +6,13 @@ import Layout from "../Layout/Layout";
 const ContractCreator: React.FC = () => {
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const onSubmit = async (data: FieldValues) => {
+        reset();
         const createAdPayload = data as CreateAdPayload;
         createAdPayload.budget = Number(createAdPayload.budget);
         createAdPayload.resourceType = 'img';
         createAdPayload.costPerAction = Number(createAdPayload.costPerAction);
         postAd({ ad: createAdPayload });
+
     };
 
     const postAd = async ({ ad }: { ad: CreateAdPayload }) => {
@@ -183,7 +185,7 @@ const ContractCreator: React.FC = () => {
                             </div>
 
 
-                            <input className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" onClick={() => reset()} />
+                            <input className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
                         </form>
                     </div>
                 </div>
