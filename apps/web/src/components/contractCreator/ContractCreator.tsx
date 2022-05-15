@@ -4,7 +4,7 @@ import { CreateAdPayload } from '../../interfaces/app.interfaces';
 import Layout from "../Layout/Layout";
 
 const ContractCreator: React.FC = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const onSubmit = async (data: FieldValues) => {
         const createAdPayload = data as CreateAdPayload;
         createAdPayload.budget = Number(createAdPayload.budget);
@@ -32,7 +32,7 @@ const ContractCreator: React.FC = () => {
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
-                                    Campaign Title
+                                    Brand Name
                                 </label>
 
                                 <input
@@ -51,31 +51,6 @@ const ContractCreator: React.FC = () => {
                                     }
                                     {...register("title")}
                                     type="text"
-                                />
-                            </div>
-
-                            <div className="mb-8">
-                                <label className="block text-gray-400 text-lg font-light mb-2">
-                                    HBAR (ℏ) Per Event
-                                </label>
-
-                                <input
-                                    className={`
-                                    appearance-none 
-                                    focus:outline-none focus:shadow-outline focus:border-blue-600
-                                    bg-gray-900 
-                                    shadow 
-                                    border border-black rounded 
-                                    w-full 
-                                    py-2 px-3 
-                                    text-gray-200 
-                                    font-light
-                                    text-gray-300 
-                                    leading-tight 
-                                    `
-                                    }
-                                    {...register("costPerAction")}
-                                    type="number"
                                 />
                             </div>
 
@@ -158,6 +133,30 @@ const ContractCreator: React.FC = () => {
                                 </select>
                             </div>
 
+                            <div className="mb-8">
+                                <label className="block text-gray-400 text-lg font-light mb-2">
+                                    HBAR (ℏ) Per Event
+                                </label>
+
+                                <input
+                                    className={`
+                                    appearance-none 
+                                    focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    bg-gray-900 
+                                    shadow 
+                                    border border-black rounded 
+                                    w-full 
+                                    py-2 px-3 
+                                    text-gray-200 
+                                    font-light
+                                    text-gray-300 
+                                    leading-tight 
+                                    `
+                                    }
+                                    {...register("costPerAction")}
+                                    type="number"
+                                />
+                            </div>
 
                             <div className="mb-8">
                                 <label className="block text-gray-400 text-lg font-light mb-2">
@@ -168,6 +167,7 @@ const ContractCreator: React.FC = () => {
                                     className={`
                                     appearance-none 
                                     focus:outline-none focus:shadow-outline focus:border-blue-600
+                                    focus:bg-gray-900 active:bg-gray-900 valid:bg-gray-900
                                     bg-gray-900 
                                     shadow 
                                     border border-black rounded 
@@ -183,7 +183,7 @@ const ContractCreator: React.FC = () => {
                             </div>
 
 
-                            <input className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
+                            <input className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" onClick={() => reset()} />
                         </form>
                     </div>
                 </div>
