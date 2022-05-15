@@ -33,7 +33,7 @@ export class AdService {
 
             const { balance } = await this.hederaAPIService.checkBalance({ accountId: AccountId.fromString(account.accountId) });
             acountBalanceList.push({
-                name: account.username,
+                name: account.id,
                 amount: balance
             })
         }
