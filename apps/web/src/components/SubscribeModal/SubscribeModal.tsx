@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-interface ModalProp {
+interface ModalProps {
     showModal: boolean;
     title: string;
     closeCallBack: () => void
 }
-const SubscribeModal: React.FC<ModalProp> = ({ showModal, title, closeCallBack }: ModalProp) => {
-
+const SubscribeModal: React.FC<ModalProps> = ({ showModal, title, closeCallBack }) => {
     return (
         <>
             {showModal ? (

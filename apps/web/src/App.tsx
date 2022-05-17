@@ -1,17 +1,17 @@
 import React, {Fragment} from 'react';
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 
-import Toolbar from './components/toolbar/Toolbar';
-import ContractCreator from './components/contractCreator/ContractCreator';
-import SubscribePage from './components/SubscribePage/SubscribePage';
-import Monitor from './components/Monitor/Monitor';
+import Toolbar from './components/Toolbar/Toolbar';
+import Create from './components/Create/Create';
+import Subscribe from './components/Subscribe/Subscribe';
+import Analytics from './components/Analytics/Analytics';
 
 const AppRouter = () => {
   let routes = useRoutes([
-    { path: "/", element: <ContractCreator /> },
-    { path: "create", element: <ContractCreator /> },
-    { path: "market-place", element: <SubscribePage /> },
-    { path: "analytics", element: <Monitor /> },
+    { path: "/", element: <Create /> },
+    { path: "create", element: <Create /> },
+    { path: "market-place", element: <Subscribe /> },
+    { path: "analytics", element: <Analytics /> },
   ]);
   return routes;
 };

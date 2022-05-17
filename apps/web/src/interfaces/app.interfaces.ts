@@ -32,7 +32,7 @@ export interface SubscribeResponse {
     accountId: string;
 }
 
-export interface MonitorPayload {
+export interface AnalyticsPayload {
     events: string[];
     contractBalnce: string,
     accounts: MonitorAccountPayload[];
