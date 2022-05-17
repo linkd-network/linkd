@@ -11,19 +11,15 @@ export class SCEventsConsumer implements OnModuleInit {
             topic: { topic: KafkaTopic.SCEvents, fromBeginning: true },
             config: {
                 eachMessage: async ({ topic, partition, message }) => {
-                    console.log('message')
+                    console.log('message received:');
                     console.log({
                         value: message.value.toString(),
                         topic: topic.toString(),
                         partition: partition.toString(),
                     });
-
                 }
             }
-        }).then(res=>{
-            console.log('then');
-            
-        })
+        });
     }
 
 }

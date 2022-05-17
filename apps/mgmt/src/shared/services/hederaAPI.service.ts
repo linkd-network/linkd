@@ -28,7 +28,6 @@ const path = require("path");
 const HEDERA_ACCOUNTID = process.env.HEDERA_ACCOUNTID;
 const HEDERA_PUBLICKEY = process.env.HEDERA_PUBLICKEY;
 const HEDERA_PRIVATEKEY = process.env.HEDERA_PRIVATEKEY;
-console.log();
 
 @Injectable()
 export class HederaAPIService {
