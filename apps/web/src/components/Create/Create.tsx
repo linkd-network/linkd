@@ -3,8 +3,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import { CreateAdPayload } from '../../interfaces/app.interfaces';
 import Layout from "../Layout/Layout";
 
-const ContractCreator: React.FC = () => {
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+const Create: React.FC = () => {
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data: FieldValues) => {
         reset();
         const createAdPayload = data as CreateAdPayload;
@@ -194,4 +194,4 @@ const ContractCreator: React.FC = () => {
     );
 }
 
-export default ContractCreator;
+export default Create;

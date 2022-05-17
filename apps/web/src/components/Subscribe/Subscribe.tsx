@@ -4,7 +4,7 @@ import AdItem from '../AdItem/AdItem';
 import Layout from "../Layout/Layout";
 import SubscribeModal from '../SubscribeModal/SubscribeModal';
 
-const SubscribePage: React.FC = () => {
+const Subscribe: React.FC = () => {
     const [ads, setAds] = useState<Ad[]>([]);
     const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
 
@@ -32,7 +32,6 @@ const SubscribePage: React.FC = () => {
         }).then(res => res.json());
         
         setModalConfig({ showModal: true, title: ad.title });
-        // console.log(response);
     }
 
     return (
@@ -50,4 +49,4 @@ const SubscribePage: React.FC = () => {
     );
 }
 
-export default SubscribePage;
+export default Subscribe;

@@ -22,8 +22,6 @@ export class KafkaConsumerService implements OnApplicationShutdown {
     }
 
     async onApplicationShutdown() {
-        console.log(this.consumers);
-        
         for (const consumer of this.consumers) {
             consumer.disconnect();
         }

@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment} from 'react';
 import {Ad} from '../../interfaces/app.interfaces';
 
 interface AdProp {
