@@ -29,6 +29,9 @@ const Toolbar: React.FC = () => {
                     <div className="flex">
                         {routes.map((route) => <RouteItemComponent key={route.text} {...route} />)}
                     </div>
+                    <div className="flex text-white">
+                        <button className="bg-blue-600 px-3 py-1 rounded-md">Connect Wallet</button>
+                    </div>
                 </div>
             </div>
         </nav>
