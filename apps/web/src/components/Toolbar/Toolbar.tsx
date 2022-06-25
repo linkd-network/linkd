@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { routeItem } from '../../interfaces/app.interfaces';
 import RouteItemComponent from '../ToolebarRouteItem/ToolbarRouteItem';
+import Wallet from "../Wallet/Wallet"
 
 const Toolbar: React.FC = () => {
     const [routes, ] = useState<routeItem[]>(
@@ -29,6 +30,7 @@ const Toolbar: React.FC = () => {
                     <div className="flex">
                         {routes.map((route) => <RouteItemComponent key={route.text} {...route} />)}
                     </div>
+                    <Wallet />
                 </div>
             </div>
         </nav>
