@@ -5,6 +5,33 @@ import Layout from "../Layout/Layout";
 import SubscribeModal from '../SubscribeModal/SubscribeModal';
 
 
+const InputCM: React.FC<{ label: string, onChangeFn: Function }> = ({ label, onChangeFn }) => {
+    return (<div className="mb-8 w-1/2 pr-6">
+        <label className="block text-gray-400 text-lg font-light mb-2">
+            {label}
+        </label>
+
+        <input
+            className={`
+        appearance-none 
+        focus:outline-none focus:shadow-outline focus:border-blue-600
+        bg-gray-900 
+        shadow 
+        border border-black rounded 
+        py-2 px-3 
+        w-full 
+        font-light
+        py-2 px-3 
+        font-light
+        text-gray-300 
+        leading-tight 
+        `
+            }
+            onChange={(e) => onChangeFn(e)}
+            type="text"
+        />
+    </div>)
+}
 
 interface InputConfig {
     field: string;
@@ -141,67 +168,19 @@ const DRTSubscribePage: React.FC = () => {
                                 {customInputsList.map((formItem, i) => {
                                     return (
                                         <div key={i} className="flex ">
+                                            <InputCM label="Field"
+                                                onChangeFn={({ target }: any) => customFieldChange({
+                                                    field: formItem,
+                                                    key: 'field',
+                                                    value: target.value
+                                                })} />
 
-                                            <div className="mb-8 w-1/2 pr-6">
-                                                <label className="block text-gray-400 text-lg font-light mb-2">
-                                                    Field
-                                                </label>
-
-                                                <input
-                                                    className={`
-                                                    appearance-none 
-                                                    focus:outline-none focus:shadow-outline focus:border-blue-600
-                                                    bg-gray-900 
-                                                    shadow 
-                                                    border border-black rounded 
-                                                    py-2 px-3 
-                                                    font-light
-                                                    py-2 px-3 
-                                                    w-full 
-                                                    font-light
-                                                    text-gray-300 
-                                                    leading-tight 
-                                                    `
-                                                    }
-                                                    // {...register(formItem.field)}
-                                                    onChange={({ target }) => customFieldChange({
-                                                        field: formItem,
-                                                        key: 'field',
-                                                        value: target.value
-                                                    })}
-                                                    type="text"
-                                                />
-                                            </div>
-
-                                            <div className="mb-8 w-1/2 pr-6">
-                                                <label className="block text-gray-400 text-lg font-light mb-2">
-                                                    Value
-                                                </label>
-
-                                                <input
-                                                    className={`
-                                                    appearance-none 
-                                                    focus:outline-none focus:shadow-outline focus:border-blue-600
-                                                    bg-gray-900 
-                                                    shadow 
-                                                    border border-black rounded 
-                                                    py-2 px-3 
-                                                    w-full 
-                                                    font-light
-                                                    py-2 px-3 
-                                                    font-light
-                                                    text-gray-300 
-                                                    leading-tight 
-                                                    `
-                                                    }
-                                                    onChange={({ target }) => customFieldChange({
-                                                        field: formItem,
-                                                        key: 'value',
-                                                        value: target.value
-                                                    })}
-                                                    type="text"
-                                                />
-                                            </div>
+                                            <InputCM label="Value"
+                                                onChangeFn={({ target }: any) => customFieldChange({
+                                                    field: formItem,
+                                                    key: 'value',
+                                                    value: target.value
+                                                })} />
 
                                         </div>
 
@@ -221,4 +200,7 @@ const DRTSubscribePage: React.FC = () => {
 
 
 }
+
+
+
 export default DRTSubscribePage;
