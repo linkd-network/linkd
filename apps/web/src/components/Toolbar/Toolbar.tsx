@@ -17,6 +17,10 @@ const Toolbar: React.FC = () => {
       text: "Analytics",
       path: "/analytics",
     },
+    {
+      text: "Subscribe",
+      path: "/subscribe/owner",
+    },
   ]);
 
   return (

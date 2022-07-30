@@ -9,12 +9,18 @@ const Wallet: React.FC = () => {
 
   // @ts-ignore
   const { ethereum } = window;
-  // @ts-ignore
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
+  // @ts-ignore
+  let provider: Web3Provider;
   useEffect(() => {
+
     // @ts-ignore
     const { ethereum } = window;
+
+    if (!ethereum) return;
+    provider = new ethers.providers.Web3Provider(ethereum);
+
+
     const checkMetamaskAvailability = async () => {
       if (!ethereum) {
         sethaveMetamask(false);
@@ -52,7 +58,7 @@ const Wallet: React.FC = () => {
                 <button className="bg-blue-600 px-3 py-1 rounded-md">
                   {accountAddress.slice(0, 5)}
                   ...
-                  {accountAddress.slice(accountAddress.length-6, accountAddress.length)} (Balance:{" "}
+                  {accountAddress.slice(accountAddress.length - 6, accountAddress.length)} (Balance:{" "}
                   {accountBalance.slice(0, 3)})
                 </button>
               </div>
