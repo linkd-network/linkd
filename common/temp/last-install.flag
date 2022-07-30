@@ -1,8 +1,8 @@
 {
-  "node": "14.15.4",
+  "node": "16.14.0",
   "packageManager": "pnpm",
   "packageManagerVersion": "6.7.1",
-  "rushJsonFolder": "/Users/matanshushan/Programing/personal/linkd/linkd",
-  "storePath": "/Users/matanshushan/Programing/personal/linkd/linkd/common/temp/pnpm-store",
+  "rushJsonFolder": "/Users/dean/Sandbox/linkd",
+  "storePath": "/Users/dean/Sandbox/linkd/common/temp/pnpm-store",
   "workspaces": true
 }
