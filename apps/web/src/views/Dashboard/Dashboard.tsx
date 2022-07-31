@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import { AnalyticsPayload } from '../../interfaces/app.interfaces';
-import { Layout } from "../../components/Layout";
 
 interface AnalyticsData extends AnalyticsPayload {
     sum: {
@@ -42,7 +41,7 @@ const Dashboard = ({}: DashboardProps): JSX.Element => {
     }
 
     return (
-        <Layout>
+        <Fragment>
             {analyticsPayload &&
                 <Fragment>
                     <div className="flex flex-col">
@@ -103,7 +102,7 @@ const Dashboard = ({}: DashboardProps): JSX.Element => {
                         </button>
                     </div>
             </Fragment>}
-        </Layout>
+        </Fragment>
     );
 }
 

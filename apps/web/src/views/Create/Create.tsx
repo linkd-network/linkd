@@ -1,36 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
-import Layout from "../Layout/Layout";
-import SubscribeModal from '../SubscribeModal/SubscribeModal';
-
-const InputCM: React.FC<{ label: string, onChangeFn: Function }> = ({ label, onChangeFn }) => {
-    return (<div className="mb-8 w-1/2 pr-6">
-        <label className="block text-gray-400 text-lg font-light mb-2">
-            {label}
-        </label>
-
-        <input
-            className={`
-                appearance-none 
-                focus:outline-none focus:shadow-outline focus:border-blue-600
-                bg-gray-900 
-                shadow 
-                border border-black rounded 
-                py-2 px-3 
-                w-full 
-                font-light
-                py-2 px-3 
-                font-light
-                text-gray-300 
-                leading-tight 
-            `
-            }
-            onChange={(e) => onChangeFn(e)}
-            type="text"
-        />
-    </div>)
-}
+import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
 
 interface InputConfig {
     field: string;
@@ -38,13 +9,28 @@ interface InputConfig {
     type: string
 }
 
+interface Field {
+    field: string;
+    value: string;
+}
 
-const DRTSubscribePage: React.FC = () => {
-    const [customInputsList, setCustomInputsList] = useState<{ field: string, value: string }[]>([]);
-    const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
+interface ModalConfig {
+    showModal: boolean;
+    title: string;
+}
 
-    const { entityType } = useParams()
+interface CreateProps {
+    // ...proptypes
+}
 
+const Create = ({}: CreateProps): JSX.Element => {
+    const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
+    const [modalConfig, setModalConfig] = useState<ModalConfig>({
+        showModal: false,
+        title: ''
+    });
+
+    const { entityType } = useParams();
     const { register, handleSubmit, reset } = useForm();
 
     const inputsList: InputConfig[] = [
@@ -52,25 +38,25 @@ const DRTSubscribePage: React.FC = () => {
     ]
 
     const onSubmit = async (data: FieldValues) => {
-        let validCustomUserField = customInputsList.filter((x) => x.field && x.value);
-        data.customMetadata = {}
+        try {
+            const validCustomUserField = customInputsList.filter(({field, value}) => field && value);
 
-        validCustomUserField.forEach(x => {
-            data.customMetadata[x.field] = x.value
-        })
+            data.customMetadata = {}
 
-        let res = await submitCreateDRTReq({ userData: data })
-        if (res.success) {
-            openInstructionsPopup()
+            validCustomUserField.forEach(({field, value}) => {
+                data.customMetadata[field] = value
+            })
+
+            const res = await submitCreateDRTReq({ userData: data });
+
+            if (res?.success) setModalConfig({ showModal: true, title: 'Instructions Popup' });
+
+            setCustomInputsList([]);
+            reset();
+        } catch (err) {
+            console.log('Error submitting form: ', err);
         }
-
-        setCustomInputsList([])
-        reset()
     };
-
-    const openInstructionsPopup = () => {
-        setModalConfig({ showModal: true, title: 'Instructions Popup' });
-    }
 
     const submitCreateDRTReq = async ({ userData }: { userData: Record<string, any> }) => {
 
@@ -79,13 +65,13 @@ const DRTSubscribePage: React.FC = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
         });
+
         return response.json();
 
     }
 
     const addCustomField = () => {
         setCustomInputsList([...customInputsList, { field: '', value: '' }])
-
     }
 
     const customFieldChange = ({ field, key, value }: { value: string, key: "field" | "value", field: { field: string, value: string } }) => {
@@ -97,7 +83,7 @@ const DRTSubscribePage: React.FC = () => {
     }
 
     return (
-        <Layout>
+        <Fragment>
             <div className="flex items-center justify-center">
                 <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal} />
 
@@ -152,19 +138,19 @@ const DRTSubscribePage: React.FC = () => {
                                 {customInputsList.map((formItem, i) => {
                                     return (
                                         <div key={i} className="flex ">
-                                            <InputCM label="Field"
-                                                onChangeFn={({ target }: any) => customFieldChange({
-                                                    field: formItem,
-                                                    key: 'field',
-                                                    value: target.value
-                                                })} />
+                                            {/*<InputCM label="Field"*/}
+                                            {/*    onChangeFn={({ target }: any) => customFieldChange({*/}
+                                            {/*        field: formItem,*/}
+                                            {/*        key: 'field',*/}
+                                            {/*        value: target.value*/}
+                                            {/*    })} />*/}
 
-                                            <InputCM label="Value"
-                                                onChangeFn={({ target }: any) => customFieldChange({
-                                                    field: formItem,
-                                                    key: 'value',
-                                                    value: target.value
-                                                })} />
+                                            {/*<InputCM label="Value"*/}
+                                            {/*    onChangeFn={({ target }: any) => customFieldChange({*/}
+                                            {/*        field: formItem,*/}
+                                            {/*        key: 'value',*/}
+                                            {/*        value: target.value*/}
+                                            {/*    })} />*/}
                                         </div>
                                     )
                                 })
@@ -176,12 +162,10 @@ const DRTSubscribePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </Layout>
-    )
-
-
+        </Fragment>
+    );
 }
 
-
-
-export default DRTSubscribePage;
+export {
+    Create
+};

@@ -1,26 +1,22 @@
-import Wallet from "../Wallet/Wallet";
+import Wallet from "../../Wallet/Wallet";
 import React, { useState } from "react";
-import { NavItemProps } from "../../interfaces/app.interfaces";
-import RouteItemComponent from "../ToolebarRouteItem/ToolbarRouteItem";
+import { NavItemProps } from "../../../interfaces/app.interfaces";
+import RouteItemComponent from "../../ToolebarRouteItem/ToolbarRouteItem";
 
-const Toolbar: React.FC = () => {
+const Header: React.FC = () => {
 
   const [routes] = useState<NavItemProps[]>([
     {
       text: "Create",
-      path: "/create",
+      path: "/create/owner",
     },
     {
       text: "Market Place",
       path: "/market-place",
     },
     {
-      text: "Analytics",
-      path: "/analytics",
-    },
-    {
-      text: "Subscribe",
-      path: "/subscribe/owner",
+      text: "Dashboard",
+      path: "/dashboard",
     },
   ]);
 
@@ -46,4 +42,6 @@ const Toolbar: React.FC = () => {
   );
 };
 
-export default Toolbar;
+export {
+  Header
+};

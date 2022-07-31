@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Ad, SubscribeResponse } from '../../interfaces/app.interfaces';
-import AdItem from '../AdItem/AdItem';
-import Layout from "../Layout/Layout";
-import SubscribeModal from '../SubscribeModal/SubscribeModal';
+import AdItem from '../../components/AdItem/AdItem';
+import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
 
-const Subscribe: React.FC = () => {
+interface MarketProps {
+    // ...proptypes
+}
+
+const Market = ({}: MarketProps): JSX.Element => {
     const [ads, setAds] = useState<Ad[]>([]);
     const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
 
@@ -24,29 +27,31 @@ const Subscribe: React.FC = () => {
 
     }
     const subscribeToAd = async (ad: Ad) => {
-        
+
         const response: SubscribeResponse = await fetch('mgmt/v1/ads/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: ad.id })
         }).then(res => res.json());
-        
+
         setModalConfig({ showModal: true, title: ad.title });
     }
 
     return (
-        <Layout>
+        <Fragment>
             <div className="flex flex-wrap -mx-8">
                 {ads?.map((ad) => <AdItem
-                    ad={ad}
-                    handleSubscribe={subscribeToAd}
-                    key={ad.id}
-                />
+                        ad={ad}
+                        handleSubscribe={subscribeToAd}
+                        key={ad.id}
+                    />
                 )}
             </div>
             <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal}></SubscribeModal>
-        </Layout>
+        </Fragment>
     );
 }
 
-export default Subscribe;
+export {
+    Market
+};

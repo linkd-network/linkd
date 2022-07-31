@@ -1,30 +1,27 @@
-import React, { Fragment } from 'react';
+import React, {FunctionComponent} from 'react';
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 
-import Toolbar from './components/Toolbar/Toolbar';
-import Create from './components/Create/Create';
-import Subscribe from './components/Subscribe/Subscribe';
+import { Market } from './views/Market';
+import { Create } from './views/Create/';
 import { Dashboard } from './views/Dashboard';
-import DRTSubscribePage from './components/DRTSubscirbePage/DRTSubscribePage';
+import {Layout} from "./components/Layout";
 
 const AppRouter = () => {
   return useRoutes([
     { path: "/", element: <Create /> },
-    { path: "create", element: <Create /> },
-    { path: "market-place", element: <Subscribe /> },
+    { path: "create/:entityType", element: <Create /> },
+    { path: "market-place", element: <Market /> },
     { path: "dashboard", element: <Dashboard /> },
-    { path: "subscribe/:entityType", element: <DRTSubscribePage /> },
   ]);
 };
 
-const App: React.FC = () => {
+const App: FunctionComponent = () => {
   return (
-    <div className='text-white'>
       <Router>
-        <Toolbar />
-        <AppRouter />
+        <Layout>
+            <AppRouter />
+        </Layout>
       </Router>
-    </div>
   );
 };
 
