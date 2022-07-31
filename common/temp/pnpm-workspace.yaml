@@ -1,4 +1,0 @@
-packages:
-  - ../../apps/hedera-sdk
-  - ../../apps/mgmt
-  - ../../apps/web
