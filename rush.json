@@ -384,6 +384,10 @@
       "tags": [
         "API"
       ]
+    },
+    {
+      "packageName": "@monorepo/todos-dapp",
+      "projectFolder": "apps/todos-dapp"
     }
     // {
     //   /**

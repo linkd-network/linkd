@@ -1,0 +1,4 @@
+../todos.linkd.network/node_modules/
+.next/
+.DS_STORE
+.env
