@@ -1,10 +1,11 @@
 import Wallet from "../Wallet/Wallet";
 import React, { useState } from "react";
-import { routeItem } from "../../interfaces/app.interfaces";
+import { NavItemProps } from "../../interfaces/app.interfaces";
 import RouteItemComponent from "../ToolebarRouteItem/ToolbarRouteItem";
 
 const Toolbar: React.FC = () => {
-  const [routes] = useState<routeItem[]>([
+
+  const [routes] = useState<NavItemProps[]>([
     {
       text: "Create",
       path: "/create",

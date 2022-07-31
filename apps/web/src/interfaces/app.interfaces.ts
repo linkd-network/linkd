@@ -1,6 +1,4 @@
-import { AdEventType } from "./app.enums";
-
-export interface routeItem {
+export interface NavItemProps {
     text: string;
     path: string;
 }
@@ -34,7 +32,7 @@ export interface SubscribeResponse {
 
 export interface AnalyticsPayload {
     events: string[];
-    contractBalnce: string,
+    contractBalance: string,
     accounts: MonitorAccountPayload[];
 }
 export interface MonitorAccountPayload {

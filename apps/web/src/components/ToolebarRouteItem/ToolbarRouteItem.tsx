@@ -1,8 +1,8 @@
 import React from 'react';
-import {routeItem} from '../../interfaces/app.interfaces';
+import {NavItemProps} from '../../interfaces/app.interfaces';
 import {NavLink} from "react-router-dom";
 
-const RouteItemComponent: React.FC<routeItem> = ({path, text}: routeItem) => {
+const RouteItemComponent: React.FC<NavItemProps> = ({path, text}: NavItemProps) => {
     return (
         <NavLink to={path}
         className={({isActive}) => (
