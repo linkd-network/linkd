@@ -2,11 +2,11 @@ import React, {FunctionComponent} from 'react';
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 
 import { Market } from './views/Market';
-import { Create } from './views/Create/';
+import { Create } from './views/Create';
 import { Dashboard } from './views/Dashboard';
 import {Layout} from "./components/Layout";
 
-const AppRouter = () => {
+const Routes = () => {
   return useRoutes([
     { path: "/", element: <Create /> },
     { path: "create/:entityType", element: <Create /> },
@@ -19,7 +19,7 @@ const App: FunctionComponent = () => {
   return (
       <Router>
         <Layout>
-            <AppRouter />
+            <Routes />
         </Layout>
       </Router>
   );

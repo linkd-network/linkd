@@ -2,7 +2,7 @@ import React from 'react';
 import {NavItemProps} from '../../interfaces/app.interfaces';
 import {NavLink} from "react-router-dom";
 
-const RouteItemComponent: React.FC<NavItemProps> = ({path, text}: NavItemProps) => {
+const NavItem = ({path, text}: NavItemProps): JSX.Element => {
     return (
         <NavLink to={path}
         className={({isActive}) => (
@@ -33,4 +33,6 @@ const RouteItemComponent: React.FC<NavItemProps> = ({path, text}: NavItemProps) 
 }
 
 
-export default RouteItemComponent;
+export {
+    NavItem
+};

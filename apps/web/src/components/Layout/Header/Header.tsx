@@ -1,7 +1,7 @@
 import Wallet from "../../Wallet/Wallet";
 import React, { useState } from "react";
 import { NavItemProps } from "../../../interfaces/app.interfaces";
-import RouteItemComponent from "../../ToolebarRouteItem/ToolbarRouteItem";
+import {NavItem} from "../../NavItem/NavItem";
 
 const Header: React.FC = () => {
 
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
           </div>
           <div className="flex">
             {routes.map((route) => (
-              <RouteItemComponent key={route.text} {...route} />
+              <NavItem key={route.text} {...route} />
             ))}
           </div>
           <Wallet />
