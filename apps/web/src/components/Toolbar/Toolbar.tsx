@@ -1,4 +1,4 @@
-import Wallet from "../Wallet/Wallet";
+import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import React, { useState } from "react";
 import { routeItem } from "../../interfaces/app.interfaces";
 import RouteItemComponent from "../ToolebarRouteItem/ToolbarRouteItem";
@@ -21,6 +21,10 @@ const Toolbar: React.FC = () => {
       text: "Subscribe",
       path: "/subscribe/owner",
     },
+    {
+      text: "Dashboard",
+      path: "/dashboard",
+    },
   ]);
 
   return (
@@ -37,7 +41,7 @@ const Toolbar: React.FC = () => {
               <RouteItemComponent key={route.text} {...route} />
             ))}
           </div>
-          <Wallet />
+          <ConnectWallet />
 
         </div>
       </div>

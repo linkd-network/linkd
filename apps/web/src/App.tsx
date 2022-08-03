@@ -6,6 +6,7 @@ import Create from './components/Create/Create';
 import Subscribe from './components/Subscribe/Subscribe';
 import Analytics from './components/Analytics/Analytics';
 import DRTSubscribePage from './components/DRTSubscirbePage/DRTSubscribePage';
+import Dashboard from './components/Dashboard/Dashboard'
 
 const AppRouter = () => {
   let routes = useRoutes([
@@ -14,6 +15,7 @@ const AppRouter = () => {
     { path: "market-place", element: <Subscribe /> },
     { path: "analytics", element: <Analytics /> },
     { path: "subscribe/:entityType", element: <DRTSubscribePage /> },
+    { path: "dashboard", element: <Dashboard /> },
   ]);
   return routes;
 };
