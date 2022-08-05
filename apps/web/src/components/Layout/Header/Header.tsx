@@ -1,47 +1,199 @@
 import Wallet from "../../Wallet/Wallet";
-import React, { useState } from "react";
-import { NavItemProps } from "../../../interfaces/app.interfaces";
+import React, {useState} from "react";
+import {NavItemProps} from "../../../interfaces/app.interfaces";
 import {NavItem} from "../../NavItem/NavItem";
+
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import {ThemeProvider} from "@mui/material";
+import {theme} from "../../../styles/Theme";
+import Divider from "@mui/material/Divider";
+import {CSSObject, styled, Theme} from "@mui/material/styles";
+import {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar/AppBar";
+import MuiAppBar from "@mui/material/AppBar";
+import MuiDrawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import DataArrayIcon from "@mui/icons-material/DataArray";
+import DataUsageIcon from "@mui/icons-material/DataUsage";
+import StorageIcon from '@mui/icons-material/Storage';
+import ListItemText from "@mui/material/ListItemText";
+import CssBaseline from "@mui/material/CssBaseline";
+
+const drawerWidth = 240;
+
+const openedMixin = (theme: Theme): CSSObject => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+});
+
+const DrawerHeader = styled('div')(({theme}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
+
+interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({theme, open}) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        '& .MuiPaper-root.MuiDrawer-paper': {
+            backgroundColor: theme.palette.primary.dark,
+        },
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
+    }),
+);
 
 const Header: React.FC = () => {
 
-  const [routes] = useState<NavItemProps[]>([
-    {
-      text: "Create",
-      path: "/create/owner",
-    },
-    {
-      text: "Market Place",
-      path: "/market-place",
-    },
-    {
-      text: "Dashboard",
-      path: "/dashboard",
-    },
-  ]);
+    const [routes, setRoutes] = useState<NavItemProps[]>([
+        {
+            text: "Create",
+            path: "/create",
+            icon: <DataArrayIcon sx={{color: 'white'}} />,
+        },
+        {
+            text: "Market Place",
+            path: "/market",
+            icon: <StorageIcon sx={{color: 'white'}} />,
+        },
+        {
+            text: "Dashboard",
+            path: "/dashboard",
+            icon: <DataUsageIcon sx={{color: 'white'}} />,
+        },
+    ]);
 
-  return (
-    <nav className="bg-black h-14 flex items-center">
-      <div className="container w-full mx-auto px-6">
-        <div className="flex items-center justify-between flex-wrap">
-          <div className="flex items-center flex-shrink-0 text-white mr-6">
-            <span className="font-semibold text-xl text-4xl text-blue-500">
-              Linkd
-            </span>
-          </div>
-          <div className="flex">
-            {routes.map((route) => (
-              <NavItem key={route.text} {...route} />
-            ))}
-          </div>
-          <Wallet />
+    const [open, setOpen] = React.useState(false);
 
-        </div>
-      </div>
-    </nav>
-  );
+    const handleDrawerOpen = () => {
+        setOpen(!open);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    return (
+        <ThemeProvider theme={theme}>
+            <Box sx={{display: 'flex'}}>
+                <CssBaseline />
+                <AppBar position="fixed">
+                    <Toolbar>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{mr: 2}}
+                            onClick={handleDrawerOpen}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Box sx={{
+                            display: 'flex',
+                            flexGrow: 1,
+                        }}>
+                            <Typography variant="h6" component="h1" fontWeight="700">
+                                Census
+                            </Typography>
+                            &nbsp;&nbsp;&nbsp;
+                            <Typography variant="h6" component="h2" fontWeight="300">
+                                / &nbsp;Create
+                            </Typography>
+                        </Box>
+                        <Wallet/>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader/>
+                    <Divider/>
+                    <List>
+                        {routes.map(({text, path, icon}, index) => (
+                            <ListItem key={text} disablePadding sx={{display: 'block'}}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} sx={{opacity: open ? 1 : 0, color: 'white'}} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+            </Box>
+            <DrawerHeader/>
+        </ThemeProvider>
+    );
 };
 
 export {
-  Header
+    Header
 };

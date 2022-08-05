@@ -1,6 +1,7 @@
 export interface NavItemProps {
     text: string;
     path: string;
+    icon: JSX.Element;
 }
 
 export interface CreateAdPayload {
