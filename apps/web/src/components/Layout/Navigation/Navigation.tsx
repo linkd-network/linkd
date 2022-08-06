@@ -16,10 +16,9 @@ import {theme} from "../../../styles/Theme";
 
 interface NavigationProps {
     open: boolean;
-    handleDrawerClose: () => void;
 }
 
-const Navigation = ({open, handleDrawerClose}: NavigationProps) => {
+const Navigation = ({open}: NavigationProps) => {
 
     const [routes, setRoutes] = useState<NavItemProps[]>([
         {

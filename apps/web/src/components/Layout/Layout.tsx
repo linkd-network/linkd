@@ -23,15 +23,8 @@ const Layout = ({children}: LayoutProps) => {
         <Fragment>
             <ClickAwayListener onClickAway={handleDrawerClose}>
                 <header>
-                    <Header
-                        open={open}
-                        handleDrawerClose={handleDrawerClose}
-                        handleDrawerOpen={handleDrawerOpen}
-                    />
-                    <Navigation
-                        open={open}
-                        handleDrawerClose={handleDrawerClose}
-                    />
+                    <Header handleDrawerOpen={handleDrawerOpen} />
+                    <Navigation open={open} />
                 </header>
             </ClickAwayListener>
             <main className="h-100vh p-14 bg-gray-900">

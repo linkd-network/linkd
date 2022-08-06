@@ -11,12 +11,10 @@ import AppBar from "@mui/material/AppBar/AppBar";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 
 interface HeaderProps {
-    open: boolean;
     handleDrawerOpen: () => void;
-    handleDrawerClose: () => void;
 }
 
-const Header = ({open, handleDrawerOpen, handleDrawerClose}: HeaderProps) => {
+const Header = ({handleDrawerOpen}: HeaderProps) => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{display: 'flex'}}>
