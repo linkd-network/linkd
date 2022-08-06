@@ -1,0 +1,1 @@
+export {TopBarPlaceholder} from './TopBarPlaceholder';
