@@ -20,7 +20,7 @@ const Header = ({open, handleDrawerOpen, handleDrawerClose}: HeaderProps) => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{display: 'flex'}}>
-                <AppBar position="fixed" sx={{zIndex: theme.zIndex.drawer + 1}}>
+                <AppBar component="div" position="fixed" sx={{zIndex: theme.zIndex.drawer + 1}}>
                     <Toolbar>
                         <IconButton
                             size="large"
