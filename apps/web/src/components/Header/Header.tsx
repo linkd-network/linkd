@@ -1,4 +1,4 @@
-import Wallet from "../../Wallet/Wallet";
+import Wallet from "../Wallet/Wallet";
 import React from "react";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {ThemeProvider} from "@mui/material/styles";
-import {theme} from "../../../styles/Theme";
+import {theme} from "../../styles/Theme";
 import AppBar from "@mui/material/AppBar/AppBar";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 

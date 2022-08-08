@@ -1,6 +1,6 @@
 import React, {Fragment, ReactNode} from 'react';
-import {Header} from "./Header";
-import {Navigation} from "./Navigation";
+import {Header} from "../Header";
+import {Navigation} from "../Navigation";
 import {ClickAwayListener} from "@mui/material";
 
 interface LayoutProps {

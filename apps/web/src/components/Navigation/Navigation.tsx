@@ -7,13 +7,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {CSSObject, styled, Theme, ThemeProvider} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import {NavItemProps} from "../../../interfaces/app.interfaces";
+import {NavItemProps} from "../../interfaces/app.interfaces";
 import DataArrayIcon from "@mui/icons-material/DataArray";
 import StorageIcon from "@mui/icons-material/Storage";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
-import {theme} from "../../../styles/Theme";
-import {NavItem} from "../../NavItem/NavItem";
+import {theme} from "../../styles/Theme";
+import {NavItem} from "../NavItem/NavItem";
 // import { NavLink } from 'react-router-dom';
 
 interface NavigationProps {
