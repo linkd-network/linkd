@@ -14,7 +14,6 @@ import DataUsageIcon from "@mui/icons-material/DataUsage";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 import {theme} from "../../styles/Theme";
 import {NavItem} from "../NavItem/NavItem";
-// import { NavLink } from 'react-router-dom';
 
 interface NavigationProps {
     open: boolean;
