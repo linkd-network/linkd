@@ -13,6 +13,8 @@ import StorageIcon from "@mui/icons-material/Storage";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 import {theme} from "../../../styles/Theme";
+import {NavItem} from "../../NavItem/NavItem";
+// import { NavLink } from 'react-router-dom';
 
 interface NavigationProps {
     open: boolean;
@@ -43,9 +45,16 @@ const Navigation = ({open}: NavigationProps) => {
             <Drawer variant="permanent" open={open}>
                 <TopBarPlaceholder />
                 <Divider/>
-                <List>
+                <List sx={{padding: 0}}>
                     {routes.map(({text, path, icon}, index) => (
-                        <ListItem key={text} disablePadding sx={{display: 'block'}}>
+                        <ListItem
+                            key={text}
+                            disablePadding
+                            sx={{display: 'block'}}
+                                  component={NavItem}
+                                  to={path}
+                                  activeClassName={'active'}
+                        >
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -62,7 +71,10 @@ const Navigation = ({open}: NavigationProps) => {
                                 >
                                     {icon}
                                 </ListItemIcon>
-                                <ListItemText primary={text} sx={{opacity: open ? 1 : 0, color: 'white'}}/>
+                                <ListItemText
+                                    primary={text}
+                                    sx={{opacity: open ? 1 : 0, color: 'white'}}
+                                />
                             </ListItemButton>
                         </ListItem>
                     ))}
