@@ -40,3 +40,10 @@ input:-webkit-autofill:active{
 input:-webkit-autofill{
     -webkit-text-fill-color: rgb(212, 212, 212) !important;
 }
+
+a[aria-current="page"] {
+    box-shadow: inset 3px 0 rgb(59 130 246);
+    [class*="MuiListItemText"], svg {
+        color: rgb(59 130 246);
+    }
+}

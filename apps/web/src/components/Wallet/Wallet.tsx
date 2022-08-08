@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
 
 const Wallet: React.FC = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
@@ -55,21 +56,24 @@ const Wallet: React.FC = () => {
           {isConnected ? (
             <div className="card">
               <div className="card-row">
-                <button className="bg-blue-600 px-3 py-1 rounded-md">
+                <Button className="bg-blue-600 px-3 py-1 rounded-md">
                   {accountAddress.slice(0, 5)}
                   ...
                   {accountAddress.slice(accountAddress.length - 6, accountAddress.length)} (Balance:{" "}
                   {accountBalance.slice(0, 3)})
-                </button>
+                </Button>
               </div>
             </div>
           ) : (
-            <button
+            <Button
               onClick={connectWallet}
               className="bg-blue-600 px-3 py-1 rounded-md"
+              color="secondary"
+              variant="contained"
+              size="small"
             >
               Connect Wallet
-            </button>
+            </Button>
           )}
         </div>
       ) : (

@@ -1,17 +1,41 @@
-import React, {ReactNode} from 'react';
+import React, {Fragment, ReactNode} from 'react';
+import {Header} from "../Header";
+import {Navigation} from "../Navigation";
+import {ClickAwayListener} from "@mui/material";
 
 interface LayoutProps {
     children: ReactNode | ReactNode[];
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout = ({children}: LayoutProps) => {
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(!open);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
     return (
-        <main className="h-100vh p-14 bg-gray-900">
-            <div className="container w-full mx-auto px-6">
-                {children}
-            </div>
-        </main>
+        <Fragment>
+            <ClickAwayListener onClickAway={handleDrawerClose}>
+                <header>
+                    <Header handleDrawerOpen={handleDrawerOpen} />
+                    <Navigation open={open} />
+                </header>
+            </ClickAwayListener>
+            <main className="h-100vh p-14 bg-gray-900">
+                <div className="container w-full mx-auto px-6">
+                    {children}
+                </div>
+            </main>
+        </Fragment>
     );
 };
 
-export default Layout;
+export {
+    Layout
+};

@@ -13,24 +13,24 @@
   "commands": [
     {
       "commandKind": "global",
-      "name": "run-apps",
-      "summary": "Deploys the application",
-      "description": "Run this command to deploy the all applications on containers",
-      "shellCommand": "rushx "
-    },
-    {
-      "commandKind": "global",
-      "name": "deploy-local-dev",
+      "name": "docker-up",
       "summary": "Deploys the application",
       "description": "Run this command to deploy the all applications on containers",
       "shellCommand": "docker-compose up -d"
     },
     {
       "commandKind": "global",
-      "name": "rm-local",
+      "name": "docker-down",
       "summary": "Docker compose down",
       "description": "This command remove local env",
       "shellCommand": "docker-compose down"
+    },
+    {
+      "commandKind": "global",
+      "name": "docker-build",
+      "summary": "Docker compose down",
+      "description": "This command remove local env",
+      "shellCommand": "docker compose build"
     }
     // {
     //   /**

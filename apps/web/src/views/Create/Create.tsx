@@ -1,9 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
-import Layout from "../Layout/Layout";
-import SubscribeModal from '../SubscribeModal/SubscribeModal';
+import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
 
+interface InputConfig {
+    field: string;
+    label: string
+    type: string
+}
+
+interface Field {
+    field: string;
+    value: string;
+}
+
+interface ModalConfig {
+    showModal: boolean;
+    title: string;
+}
+
+interface CreateProps {
+    // ...proptypes
+}
 
 const InputCM: React.FC<{ label: string, onChangeFn: Function }> = ({ label, onChangeFn }) => {
     return (<div className="mb-8 w-1/2 pr-6">
@@ -33,55 +51,40 @@ const InputCM: React.FC<{ label: string, onChangeFn: Function }> = ({ label, onC
     </div>)
 }
 
-interface InputConfig {
-    field: string;
-    label: string
-    type: string
-}
+const Create = ({}: CreateProps): JSX.Element => {
+    const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
+    const [modalConfig, setModalConfig] = useState<ModalConfig>({
+        showModal: false,
+        title: ''
+    });
 
-
-const DRTSubscribePage: React.FC = () => {
-    const [customInputsList, setCustomInputsList] = useState<{ field: string, value: string }[]>([]);
-    const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
-
-
-    const { entityType } = useParams()
-
+    const { entityType } = useParams();
     const { register, handleSubmit, reset } = useForm();
-
 
     const inputsList: InputConfig[] = [
         { field: 'name', label: 'Key Name', type: 'text' }
     ]
 
-
-    useEffect(() => {
-        // const [modalConfig, setModalConfig] = useState<{ showModal: boolean, title: string }>({ showModal: false, title: '' });
-
-
-    }, [])
-
-
     const onSubmit = async (data: FieldValues) => {
-        let validCustomUserField = customInputsList.filter((x) => x.field && x.value);
-        data.customMetadata = {}
+        try {
+            const validCustomUserField = customInputsList.filter(({field, value}) => field && value);
 
-        validCustomUserField.forEach(x => {
-            data.customMetadata[x.field] = x.value
-        })
+            data.customMetadata = {}
 
-        let res = await submitCreateDRTReq({ userData: data })
-        if (res.success) {
-            openInstructionsPopup()
+            validCustomUserField.forEach(({field, value}) => {
+                data.customMetadata[field] = value
+            })
+
+            const res = await submitCreateDRTReq({ userData: data });
+
+            if (res?.success) setModalConfig({ showModal: true, title: 'Instructions Popup' });
+
+            setCustomInputsList([]);
+            reset();
+        } catch (err) {
+            console.log('Error submitting form: ', err);
         }
-
-        setCustomInputsList([])
-        reset()
     };
-
-    const openInstructionsPopup = () => {
-        setModalConfig({ showModal: true, title: 'Instructions Popup' });
-    }
 
     const submitCreateDRTReq = async ({ userData }: { userData: Record<string, any> }) => {
 
@@ -90,14 +93,15 @@ const DRTSubscribePage: React.FC = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
         });
+
         return response.json();
 
     }
 
     const addCustomField = () => {
         setCustomInputsList([...customInputsList, { field: '', value: '' }])
-
     }
+
     const customFieldChange = ({ field, key, value }: { value: string, key: "field" | "value", field: { field: string, value: string } }) => {
         field[key] = value;
     }
@@ -106,11 +110,10 @@ const DRTSubscribePage: React.FC = () => {
         setModalConfig({ showModal: false, title: '' });
     }
 
-
     return (
-        <Layout>
+        <Fragment>
             <div className="flex items-center justify-center">
-                <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal}></SubscribeModal>
+                <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal} />
 
                 <div className="flex-6/12">
                     <div className="p-12 shadow-md rounded-md bg-black">
@@ -143,7 +146,6 @@ const DRTSubscribePage: React.FC = () => {
                             })
                             }
 
-
                             <div className="mb-8 ">
                                 <div className='flex'>
 
@@ -158,13 +160,9 @@ const DRTSubscribePage: React.FC = () => {
                                         </span>
                                     </div>
                                 </div>
-
-
-
                             </div>
 
                             <div>
-
                                 {customInputsList.map((formItem, i) => {
                                     return (
                                         <div key={i} className="flex ">
@@ -181,26 +179,21 @@ const DRTSubscribePage: React.FC = () => {
                                                     key: 'value',
                                                     value: target.value
                                                 })} />
-
                                         </div>
-
-
                                     )
                                 })
                                 }
-
                             </div>
+
                             <input value="Subscribe" className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline focus:border-blue-600" type="submit" />
                         </form>
                     </div>
                 </div>
             </div>
-        </Layout>
-    )
-
-
+        </Fragment>
+    );
 }
 
-
-
-export default DRTSubscribePage;
+export {
+    Create
+};
