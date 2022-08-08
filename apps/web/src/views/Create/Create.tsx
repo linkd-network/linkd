@@ -23,6 +23,34 @@ interface CreateProps {
     // ...proptypes
 }
 
+const InputCM: React.FC<{ label: string, onChangeFn: Function }> = ({ label, onChangeFn }) => {
+    return (<div className="mb-8 w-1/2 pr-6">
+        <label className="block text-gray-400 text-lg font-light mb-2">
+            {label}
+        </label>
+
+        <input
+            className={`
+        appearance-none 
+        focus:outline-none focus:shadow-outline focus:border-blue-600
+        bg-gray-900 
+        shadow 
+        border border-black rounded 
+        py-2 px-3 
+        w-full 
+        font-light
+        py-2 px-3 
+        font-light
+        text-gray-300 
+        leading-tight 
+        `
+            }
+            onChange={(e) => onChangeFn(e)}
+            type="text"
+        />
+    </div>)
+}
+
 const Create = ({}: CreateProps): JSX.Element => {
     const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
     const [modalConfig, setModalConfig] = useState<ModalConfig>({
@@ -138,19 +166,19 @@ const Create = ({}: CreateProps): JSX.Element => {
                                 {customInputsList.map((formItem, i) => {
                                     return (
                                         <div key={i} className="flex ">
-                                            {/*<InputCM label="Field"*/}
-                                            {/*    onChangeFn={({ target }: any) => customFieldChange({*/}
-                                            {/*        field: formItem,*/}
-                                            {/*        key: 'field',*/}
-                                            {/*        value: target.value*/}
-                                            {/*    })} />*/}
+                                            <InputCM label="Field"
+                                                onChangeFn={({ target }: any) => customFieldChange({
+                                                    field: formItem,
+                                                    key: 'field',
+                                                    value: target.value
+                                                })} />
 
-                                            {/*<InputCM label="Value"*/}
-                                            {/*    onChangeFn={({ target }: any) => customFieldChange({*/}
-                                            {/*        field: formItem,*/}
-                                            {/*        key: 'value',*/}
-                                            {/*        value: target.value*/}
-                                            {/*    })} />*/}
+                                            <InputCM label="Value"
+                                                onChangeFn={({ target }: any) => customFieldChange({
+                                                    field: formItem,
+                                                    key: 'value',
+                                                    value: target.value
+                                                })} />
                                         </div>
                                     )
                                 })
