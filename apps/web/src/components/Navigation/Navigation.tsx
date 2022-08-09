@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import {CSSObject, styled, Theme, ThemeProvider} from "@mui/material/styles";
+import {CSSObject, styled, Theme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import {NavItemProps} from "../../interfaces/app.interfaces";
+import {NavigationNode} from "../../interfaces/app.interfaces";
 import DataArrayIcon from "@mui/icons-material/DataArray";
 import StorageIcon from "@mui/icons-material/Storage";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
-import {theme} from "../../styles/Theme";
 import {NavItem} from "../NavItem/NavItem";
 
 interface NavigationProps {
@@ -20,8 +19,7 @@ interface NavigationProps {
 }
 
 const Navigation = ({open}: NavigationProps) => {
-
-    const [routes, setRoutes] = useState<NavItemProps[]>([
+    const routes: NavigationNode[] = [
         {
             text: "Create",
             path: "/create",
@@ -37,49 +35,46 @@ const Navigation = ({open}: NavigationProps) => {
             path: "/dashboard",
             icon: <DataUsageIcon sx={{color: 'white'}}/>,
         },
-    ]);
+    ];
 
     return (
-        <ThemeProvider theme={theme}>
-            <Drawer variant="permanent" open={open}>
-                <TopBarPlaceholder />
-                <Divider/>
-                <List sx={{padding: 0}}>
-                    {routes.map(({text, path, icon}, index) => (
-                        <ListItem
-                            key={text}
-                            disablePadding
-                            sx={{display: 'block'}}
-                                  component={NavItem}
-                                  to={path}
-                                  activeClassName={'active'}
+        <Drawer variant="permanent" open={open}>
+            <TopBarPlaceholder/>
+            <Divider/>
+            <List>
+                {routes.map(({text, path, icon}, index) => (
+                    <ListItem
+                        key={text}
+                        disablePadding
+                        component={NavItem}
+                        to={path}
+                        activeClassName={'active'}
+                    >
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                            }}
                         >
-                            <ListItemButton
+                            <ListItemIcon
                                 sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
                                 }}
                             >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {icon}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={text}
-                                    sx={{opacity: open ? 1 : 0, color: 'white'}}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
-        </ThemeProvider>
+                                {icon}
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={text}
+                                sx={{opacity: open ? 1 : 0, color: 'white'}}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Drawer>
     );
 };
 

@@ -14,7 +14,7 @@ const theme = createTheme({
         },
     },
     typography: {
-        fontFamily: 'Baloo 2',
+        fontFamily: "\'Baloo 2\'",
     },
 });
 

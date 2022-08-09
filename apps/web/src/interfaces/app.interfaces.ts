@@ -1,4 +1,4 @@
-export interface NavItemProps {
+export interface NavigationNode {
     text: string;
     path: string;
     icon: JSX.Element;
