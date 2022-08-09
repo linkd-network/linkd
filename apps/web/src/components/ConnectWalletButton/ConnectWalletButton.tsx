@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 
-const Wallet: React.FC = () => {
+const ConnectWalletButton: React.FC = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
@@ -83,4 +83,6 @@ const Wallet: React.FC = () => {
   );
 };
 
-export default Wallet;
+export {
+  ConnectWalletButton
+};
