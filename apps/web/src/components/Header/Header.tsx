@@ -8,12 +8,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {theme} from "../../styles/Theme";
 import AppBar from "@mui/material/AppBar/AppBar";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
+import {currentNavLabelState} from "../../state";
+import {useRecoilValue} from "recoil";
 
 interface HeaderProps {
     handleDrawerOpen: () => void;
 }
 
 const Header = ({handleDrawerOpen}: HeaderProps) => {
+    const navLabel = useRecoilValue(currentNavLabelState);
+
     return (
         <Fragment>
             <Box sx={{display: 'flex'}}>
@@ -38,7 +42,7 @@ const Header = ({handleDrawerOpen}: HeaderProps) => {
                             </Typography>
                             &nbsp;&nbsp;&nbsp;
                             <Typography variant="h6" component="h2" fontWeight="300">
-                                / &nbsp;Create
+                                / &nbsp;{navLabel}
                             </Typography>
                         </Box>
                         <ConnectWalletButton/>

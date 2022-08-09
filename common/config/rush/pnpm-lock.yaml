@@ -155,6 +155,7 @@ importers:
       react-hook-form: ^7.31.1
       react-router-dom: ^6.3.0
       react-scripts: 5.0.1
+      recoil: ~0.7.4
       sass: ^1.51.0
       tailwindcss: ^3.0.24
       typescript: ^4.6.3
@@ -179,6 +180,7 @@ importers:
       react-hook-form: 7.34.0_react@18.0.0
       react-router-dom: 6.3.0_react-dom@18.0.0+react@18.0.0
       react-scripts: 5.0.1_d82da055c0c640f279ad209ccb934ef8
+      recoil: 0.7.4_react-dom@18.0.0+react@18.0.0
       sass: 1.54.0
       typescript: 4.6.3
     devDependencies:
@@ -6975,6 +6977,10 @@ packages:
       duplexer: 0.1.2
     dev: false
 
+  /hamt_plus/1.0.2:
+    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
+    dev: false
+
   /handle-thing/2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
     dev: false
@@ -10710,6 +10716,23 @@ packages:
     dependencies:
       resolve: 1.22.0
     dev: true
+
+  /recoil/0.7.4_react-dom@18.0.0+react@18.0.0:
+    resolution: {integrity: sha512-sCXvQGMfSprkNU4ZRkJV4B0qFQSURJMgsICqY1952WRlg66NMwYqi6n67vhnhn0qw4zHU1gHXJuMvRDaiRNFZw==}
+    peerDependencies:
+      react: '>=16.13.1'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      hamt_plus: 1.0.2
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+    dev: false
 
   /recursive-readdir/2.2.2:
     resolution: {integrity: sha512-nRCcW9Sj7NuZwa2XvH9co8NPeXUBhZP7CRKJtU+cS6PW9FpCIFoI5ib0NT1ZrbNuPoRy0ylyCaUL8Gih4LSyFg==}
