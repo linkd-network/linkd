@@ -22,7 +22,7 @@ interface NavigationProps {
 
 const Navigation = ({open}: NavigationProps) => {
 
-    const [currentNavLabel, setCurrentNavLabel] = useRecoilState(currentNavLabelState);
+    const [, setCurrentNavLabel] = useRecoilState(currentNavLabelState);
 
     const routes: NavigationNode[] = [
         {
