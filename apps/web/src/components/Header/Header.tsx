@@ -16,7 +16,7 @@ interface HeaderProps {
 }
 
 const Header = ({handleDrawerOpen}: HeaderProps) => {
-    const navLabel = useRecoilValue(currentNavLabelState);
+    const currentNavLabel = useRecoilValue(currentNavLabelState);
 
     return (
         <Fragment>
@@ -42,7 +42,7 @@ const Header = ({handleDrawerOpen}: HeaderProps) => {
                             </Typography>
                             &nbsp;&nbsp;&nbsp;
                             <Typography variant="h6" component="h2" fontWeight="300">
-                                / &nbsp;{navLabel}
+                                / &nbsp;{currentNavLabel}
                             </Typography>
                         </Box>
                         <ConnectWalletButton/>

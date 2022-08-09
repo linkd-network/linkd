@@ -42,8 +42,6 @@ const Navigation = ({open}: NavigationProps) => {
         },
     ];
 
-    const handleNavItemClick = (label: string) => setCurrentNavLabel(label);
-
     return (
         <Drawer variant="permanent" open={open}>
             <TopBarPlaceholder/>
