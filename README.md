@@ -13,7 +13,7 @@ If using linux machine please install docker compose as well from [here](https:/
 
 3. install `pnpm` on you machine from [here](https://pnpm.io/installation). 
 4. install `rush` on you machine from [here](https://rushjs.io/pages/intro/get_started/). 
-5. 
+5. install `ipfs` on your machine from [here](https://docs.ipfs.tech/install/). run it as a daemon.
 ## Run Locally
 
 Clone the project
