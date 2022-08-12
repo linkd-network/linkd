@@ -5,9 +5,23 @@ const theme = createTheme({
     palette: {
         primary: {
             main: '#000000',
-            contrastText: '#A3A3A3',
+            contrastText: '#EFEFEF',
             light: '#202020',
             dark: '#101010',
+        },
+        secondary: {
+            main: '#2563eb',
+        },
+        background: {
+            default: '#101010',
+            paper: '#424242',
+        },
+        text: {
+            primary: '#EFEFEF',
+            secondary: '#9F9F9F',
+            disabled: '#606060',
+        },
+        grey: {
             50: '#EFEFEF',
             100: '#DFDFDF',
             200: '#BFBFBF',
@@ -18,14 +32,7 @@ const theme = createTheme({
             700: '#202020',
             800: '#101010',
             900: '#000000',
-        },
-        secondary: {
-            main: '#2563eb',
-        },
-        background: {
-            default: '#212121',
-            paper: '#424242',
-        },
+        }
     },
     typography: {
         fontFamily: "\'Baloo 2\'",
@@ -34,7 +41,7 @@ const theme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 input: ({ theme }) => ({
-                    color: theme.palette.primary.contrastText,
+                    color: theme.palette.text.secondary,
                 }),
                 notchedOutline: ({ theme }) => ({
                     borderColor: theme.palette.primary.light,
@@ -50,7 +57,7 @@ const theme = createTheme({
         MuiFormLabel: {
             styleOverrides: {
                 root: ({ theme }) => ({
-                    color: theme.palette.primary.contrastText,
+                    color: theme.palette.text.secondary,
                 }),
             },
         },
