@@ -24,8 +24,8 @@ const App: FunctionComponent = () => {
     return (
         <RecoilRoot>
             <Router>
-                <CssBaseline/>
                 <ThemeProvider theme={theme}>
+                    <CssBaseline/>
                     <Layout>
                         <Routes/>
                     </Layout>
