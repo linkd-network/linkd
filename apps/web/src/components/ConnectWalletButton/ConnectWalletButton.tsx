@@ -67,7 +67,6 @@ const ConnectWalletButton: React.FC = () => {
           ) : (
             <Button
               onClick={connectWallet}
-              className="bg-blue-600 px-3 py-1 rounded-md"
               color="secondary"
               variant="contained"
               size="small"

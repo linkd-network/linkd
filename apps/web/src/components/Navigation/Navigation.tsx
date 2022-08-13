@@ -13,12 +13,17 @@ import StorageIcon from "@mui/icons-material/Storage";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 import {NavItem} from "../NavItem/NavItem";
+import {useRecoilState} from "recoil";
+import { currentNavLabelState } from '../../state';
 
 interface NavigationProps {
     open: boolean;
 }
 
 const Navigation = ({open}: NavigationProps) => {
+
+    const [, setCurrentNavLabel] = useRecoilState(currentNavLabelState);
+
     const routes: NavigationNode[] = [
         {
             text: "Create",
@@ -48,7 +53,7 @@ const Navigation = ({open}: NavigationProps) => {
                         disablePadding
                         component={NavItem}
                         to={path}
-                        activeClassName={'active'}
+                        onClick={() => setCurrentNavLabel(text)}
                     >
                         <ListItemButton
                             sx={{

@@ -108,3 +108,6 @@ dist
 # Custom
 .idea
 .DS_Store
+
+#rush temp files
+.rush/temp/**
