@@ -34,7 +34,9 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "ipfs-http-client": "56.0.3",
+    "abortcontroller-polyfill": "~1.7.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
