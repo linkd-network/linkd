@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { NftId } from '@hashgraph/sdk';
 import {
     Client,
     AccountId,
@@ -9,17 +10,18 @@ import {
     FileAppendTransaction,
     ContractCreateTransaction,
     ContractFunctionParameters,
-    TokenUpdateTransaction,
     ContractExecuteTransaction,
-    TokenInfoQuery,
     AccountBalanceQuery,
     Hbar,
     TokenId,
     PrivateKey,
-    PublicKey,
     TransferTransaction,
     ContractCallQuery,
-    ContractInfoQuery
+    ContractInfoQuery,
+    TokenType,
+    TokenSupplyType,
+    TokenMintTransaction,
+    Status
 } from '@hashgraph/sdk'
 import { Injectable } from '@nestjs/common';
 const fs = require("fs");
@@ -28,6 +30,7 @@ const path = require("path");
 const HEDERA_ACCOUNTID = process.env.HEDERA_ACCOUNTID;
 const HEDERA_PUBLICKEY = process.env.HEDERA_PUBLICKEY;
 const HEDERA_PRIVATEKEY = process.env.HEDERA_PRIVATEKEY;
+const SUPPLY_PRIVATEKEY = PrivateKey.fromString(process.env.HEDERA_SUPPLY_PRIVATEKEY);
 
 @Injectable()
 export class HederaAPIService {
@@ -69,6 +72,77 @@ export class HederaAPIService {
         const getReceipt = await newAccount.getReceipt(this.client);
 
         return { accountIdStr: getReceipt.accountId.toStringWithChecksum(this.client), accountId: getReceipt.accountId, key: newAccountPrivateKey };
+    }
+
+    public async createNFT({ tokenName, tokenSymbol, maxSupply }: { tokenName: string, tokenSymbol: string, maxSupply: number}) {
+        const { treasuryId, treasuryKey } = this.getTreasuryDetails();
+
+        const nftCreateTx = new TokenCreateTransaction()
+            .setTokenName(tokenName)
+            .setTokenSymbol(tokenSymbol)
+            .setTokenType(TokenType.NonFungibleUnique)
+            .setDecimals(0)
+            .setInitialSupply(0)
+            .setTreasuryAccountId(treasuryId)
+            .setSupplyType(TokenSupplyType.Finite)
+            .setMaxSupply(maxSupply)
+            .setSupplyKey(SUPPLY_PRIVATEKEY)
+            .freezeWith(this.client);
+        
+        const nftCreateTxSign = await nftCreateTx.sign(treasuryKey);
+        const nftCreateSubmit = await nftCreateTxSign.execute(this.client);
+        const nftCreateRx = await nftCreateSubmit.getReceipt(this.client);
+        const tokenId = nftCreateRx.tokenId;
+
+        return {
+            tokenName: tokenName,
+            tokenSymbol: tokenSymbol,
+            tokenId: tokenId,
+        }
+    }
+
+    public async mintNFT({ tokenId, metadata }: { tokenId: TokenId, metadata: Uint8Array[] }) {
+
+        const mintTx = new TokenMintTransaction()
+            .setTokenId(tokenId)
+            .setMetadata(metadata)
+            .freezeWith(this.client);
+        
+        const mintTxSign = await mintTx.sign(SUPPLY_PRIVATEKEY);
+        const mintTxSubmit = await mintTxSign.execute(this.client);
+        const mintRx = await mintTxSubmit.getReceipt(this.client);
+
+        console.log(`New NFT minted: `, mintRx);
+
+        return {
+            status: Status.Ok == mintRx.status,
+            nftId: new NftId(tokenId, mintRx.serials[0].low),
+        };
+    }
+
+    public async transferNFT({ nftId, destinationAccountId }: { nftId: NftId, destinationAccountId: string }) {
+
+        const { treasuryId, treasuryKey } = this.getTreasuryDetails();
+
+        const tokenTransferTx = await new TransferTransaction()
+            .addNftTransfer(nftId, treasuryId, destinationAccountId)
+            .freezeWith(this.client)
+            .sign(treasuryKey);
+        
+        const tokenTransferSubmit = await tokenTransferTx.execute(this.client);
+        const tokenTransferRx = await tokenTransferSubmit.getReceipt(this.client);
+
+        var balanceCheckTx = await new AccountBalanceQuery()
+            .setAccountId(destinationAccountId)
+            .execute(this.client);
+
+        console.log(`NFT Transfer Destination account balance: ${balanceCheckTx.tokens._map.get(nftId.tokenId.toString())} NFTs of ID ${nftId.tokenId}`);
+        
+        console.log(`NFT Transfer status: ${tokenTransferRx.status}`);
+
+        return {
+            status: tokenTransferRx.status == Status.Success
+        }
     }
 
     public async associateSmartContract({ contractId, accountId, accountKey }: { accountKey: PrivateKey; contractId: ContractId, accountId: TokenId }) {

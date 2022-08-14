@@ -1,0 +1,58 @@
+// schema.prisma
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+    output = "../../node_modules/.prisma/client"
+}
+
+model Task {
+    id          String        @id @default(cuid())
+    title       String
+    tokens      Int
+    category    Category
+    status      Status        @default(OPEN)
+    content     String?
+    published   Boolean       @default(false)
+    users       TasksOnUsers[]
+}
+
+model TasksOnUsers {
+    id      Int         @default(autoincrement())
+    task    Task        @relation(fields: [taskId], references: [id])
+    user    User        @relation(fields: [userId], references: [id])
+    taskId  String
+    userId  String
+
+    @@id([taskId, userId])
+}
+
+model User {
+    id            String            @id @default(cuid())
+    userName      String            @unique
+    avatar        String
+    firstName     String
+    lastName      String
+    description   String
+    email         String            @unique
+    tokens        Int               @default(0)
+    createdAt     DateTime          @default(now()) @map(name: "created_at")
+    updatedAt     DateTime          @updatedAt @map(name: "updated_at")
+    tasks         TasksOnUsers[]
+}
+
+enum Status {
+    OPEN
+    IN_PROGRESS
+    DONE
+}
+
+enum Category {
+    DEVELOPMENT
+    BUSINESS
+    MARKETING
+    DESIGN
+}

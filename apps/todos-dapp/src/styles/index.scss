@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind height;
+@tailwind typography;
+@tailwind grid;
+@tailwind spacing;
+@tailwind layout;
+@tailwind sizing;
+@tailwind colors;
+@tailwind flexbox;
+@tailwind tables;
+@tailwind components;
+@tailwind tailwind;
+
+@layer utilities {
+  .border-spacing {
+    border-spacing: 0 1rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Play', sans-serif;
+}
+
+.h-100vh {
+  min-height: 100vh;
+}
+
+.h-100\% {
+  min-height: 100%;
+}
+
+.container {
+  --bs-gutter-x: 30px;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
+}

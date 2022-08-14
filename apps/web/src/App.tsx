@@ -1,30 +1,38 @@
-import React, {Fragment} from 'react';
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import React, {FunctionComponent} from "react";
+import {BrowserRouter as Router, useRoutes} from "react-router-dom";
+import {Market} from "./views/Market";
+import {Create} from "./views/Create";
+import {Dashboard} from "./views/Dashboard";
+import {Login} from "./views/Login";
+import {Layout} from "./components/Layout";
+import CssBaseline from "@mui/material/CssBaseline";
+import {theme} from "./styles/Theme";
+import {ThemeProvider} from "@mui/material";
+import {RecoilRoot,} from 'recoil';
 
-import Toolbar from './components/Toolbar/Toolbar';
-import Create from './components/Create/Create';
-import Subscribe from './components/Subscribe/Subscribe';
-import Analytics from './components/Analytics/Analytics';
-
-const AppRouter = () => {
-  let routes = useRoutes([
-    { path: "/", element: <Create /> },
-    { path: "create", element: <Create /> },
-    { path: "market-place", element: <Subscribe /> },
-    { path: "analytics", element: <Analytics /> },
-  ]);
-  return routes;
+const Routes = () => {
+    return useRoutes([
+        {path: "/", element: <Create/>},
+        {path: "create", element: <Create/>},
+        {path: "market-place", element: <Market/>},
+        {path: "dashboard", element: <Dashboard/>},
+        {path: "login", element: <Login/>},
+    ]);
 };
 
-const App: React.FC = () => {
-  return (
-    <Fragment>
-      <Router>
-        <Toolbar />
-        <AppRouter />
-      </Router>
-    </Fragment>
-  );
+const App: FunctionComponent = () => {
+    return (
+        <RecoilRoot>
+            <Router>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline/>
+                    <Layout>
+                        <Routes/>
+                    </Layout>
+                </ThemeProvider>
+            </Router>
+        </RecoilRoot>
+    );
 };
 
 export default App
