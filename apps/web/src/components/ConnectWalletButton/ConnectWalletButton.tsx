@@ -14,13 +14,11 @@ const ConnectWalletButton: React.FC = () => {
   // @ts-ignore
   let provider: Web3Provider;
   useEffect(() => {
-
     // @ts-ignore
     const { ethereum } = window;
 
     if (!ethereum) return;
     provider = new ethers.providers.Web3Provider(ethereum);
-
 
     const checkMetamaskAvailability = async () => {
       if (!ethereum) {
@@ -50,9 +48,9 @@ const ConnectWalletButton: React.FC = () => {
   };
 
   return (
-    <div className="App-header text-white">
+    <div className="text-white">
       {haveMetamask ? (
-        <div className="App-header">
+        <div>
           {isConnected ? (
             <div className="card">
               <div className="card-row">

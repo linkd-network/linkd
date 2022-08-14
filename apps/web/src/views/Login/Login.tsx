@@ -148,8 +148,8 @@ const Login = () => {
             <div className="m-8">
                 <Typography variant="h4" color="white" sx={{textAlign: 'center', mb: 1}}>
                     Please, connect your wallet
-                </Typography>\
-                <Typography variant="h5" color="white" sx={{textAlign: 'center'}}>
+                </Typography>
+                <Typography variant="h5" color="white" sx={{textAlign: 'center', maxWidth: '500px', mx: 'auto'}}>
                     Please connect your wallet to see your supplies, borrowings, and
                     open positions.
                 </Typography>
