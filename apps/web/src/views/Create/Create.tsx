@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
 import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
-import {TextField, Button, Stack} from '@mui/material';
+import {TextField, Button, Stack, Box, FormControl, Select, MenuItem, InputLabel} from '@mui/material';
 import {Add} from '@mui/icons-material';
 
 interface InputConfig {
@@ -107,6 +107,19 @@ const Create = ({}: CreateProps): JSX.Element => {
                         {customInputsList.map((formItem, i) => {
                             return (
                                 <Stack sx={{mt: 2}} key={i} spacing={2} direction="row">
+                                    <FormControl fullWidth>
+                                        <InputLabel color="secondary" id={`type-${i}`}>Type</InputLabel>
+                                        <Select
+                                            labelId={`type-${i}`}
+                                            id={`type-${i}`}
+                                            label="Type"
+                                        >
+                                            <MenuItem value={10}>Collection</MenuItem>
+                                            <MenuItem value={20}>String</MenuItem>
+                                            <MenuItem value={20}>Number</MenuItem>
+                                            <MenuItem value={30}>Boolean</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <TextField
                                         id={`field-${i}`}
                                         label="Key"

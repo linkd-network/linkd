@@ -50,6 +50,14 @@ const theme = createTheme({
                 root: ({ theme }) => ({
                     '&:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: `${theme.palette.secondary.main}`,
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: `${theme.palette.secondary.main}`,
+                    }
+                }),
+                focused: ({ theme }) => ({
+                    '&.MuiOutlinedInput-notchedOutline': {
+                        borderColor: `${theme.palette.secondary.main}`,
                     }
                 }),
             },
@@ -61,6 +69,13 @@ const theme = createTheme({
                 }),
             },
         },
+        MuiSelect: {
+            styleOverrides: {
+                iconOutlined: ({ theme }) => ({
+                    color: theme.palette.text.secondary,
+                })
+            },
+        }
     },
 });
 
