@@ -1,9 +1,25 @@
-import React, {Fragment, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
 import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
-import {TextField, Button, Stack, Box, FormControl, Select, MenuItem, InputLabel} from '@mui/material';
+import {TextField, Button, Stack, FormControl, Select, MenuItem, InputLabel} from '@mui/material';
 import {Add} from '@mui/icons-material';
+import {CustomField} from "../../components/CustomField/CustomField";
+
+enum FieldTypes {
+    BOOLEAN,
+    STRING,
+    NUMBER,
+    COLLECTION,
+}
+
+type FieldType = boolean | string | number | Array<string>;
+
+interface _Field<T> {
+    type: FieldTypes;
+    key: string;
+    value: T;
+}
 
 interface InputConfig {
     field: string;
@@ -25,19 +41,18 @@ interface CreateProps {
     // ...proptypes
 }
 
+
+const inputsList: InputConfig[] = [
+    {field: 'name', label: 'Data Resource ID', type: 'text'}
+]
+
 const Create = ({}: CreateProps): JSX.Element => {
     const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
-    const [modalConfig, setModalConfig] = useState<ModalConfig>({
-        showModal: false,
-        title: ''
-    });
+
+    const [values, setValues] = useState({});
 
     const {entityType} = useParams();
     const {register, handleSubmit, reset} = useForm();
-
-    const inputsList: InputConfig[] = [
-        {field: 'name', label: 'Data Resource ID', type: 'text'}
-    ]
 
     const onSubmit = async (data: FieldValues) => {
         try {
@@ -51,7 +66,7 @@ const Create = ({}: CreateProps): JSX.Element => {
 
             const res = await submitCreateDRTReq({userData: data});
 
-            if (res?.success) setModalConfig({showModal: true, title: 'Instructions Popup'});
+            if (res?.success) // close modal
 
             setCustomInputsList([]);
             reset();
@@ -72,79 +87,31 @@ const Create = ({}: CreateProps): JSX.Element => {
 
     }
 
-    const addCustomField = () => setCustomInputsList([...customInputsList, {field: '', value: ''}]);
+    const addCustomField = () => setCustomInputsList(prevState => [...prevState, {type: '', field: '', value: '' }]);
 
-    const customFieldChange = ({
-                                   field,
-                                   key,
-                                   value
-                               }: { value: string, key: "field" | "value", field: { field: string, value: string } }) => {
-        field[key] = value;
-    }
-
-    const closeModal = () => setModalConfig({showModal: false, title: ''});
 
     return (
         <div className="flex items-center justify-center">
-            <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal}/>
 
-            <div className="flex-6/12">
+            <div className="flex-9/12">
                 <div className="p-12 shadow-md rounded-md bg-black">
                     {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {inputsList.map((formItem) => {
+                        {inputsList.map(({field, label, type}) => {
                             return <TextField
                                 fullWidth
-                                key={formItem.field}
-                                label={formItem.label}
+                                key={field}
+                                label={label}
                                 variant="outlined"
                                 color="secondary"
-                                {...register(formItem.field)}
-                                type={formItem.type}
+                                {...register(field)}
+                                type={type}
                             />
                         })}
 
                         {customInputsList.map((formItem, i) => {
                             return (
-                                <Stack sx={{mt: 2}} key={i} spacing={2} direction="row">
-                                    <FormControl fullWidth>
-                                        <InputLabel color="secondary" id={`type-${i}`}>Type</InputLabel>
-                                        <Select
-                                            labelId={`type-${i}`}
-                                            id={`type-${i}`}
-                                            label="Type"
-                                        >
-                                            <MenuItem value={10}>Collection</MenuItem>
-                                            <MenuItem value={20}>String</MenuItem>
-                                            <MenuItem value={20}>Number</MenuItem>
-                                            <MenuItem value={30}>Boolean</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <TextField
-                                        id={`field-${i}`}
-                                        label="Key"
-                                        variant="outlined"
-                                        color="secondary"
-                                        fullWidth
-                                        onChange={({target}: any) => customFieldChange({
-                                            field: formItem,
-                                            key: 'field',
-                                            value: target.value
-                                        })}
-                                    />
-                                    <TextField
-                                        id={`value-${i}`}
-                                        label="Value"
-                                        variant="outlined"
-                                        color="secondary"
-                                        fullWidth
-                                        onChange={({target}: any) => customFieldChange({
-                                            field: formItem,
-                                            key: 'value',
-                                            value: target.value
-                                        })}
-                                    />
-                                </Stack>
+                                <CustomField setValues={setValues} key={`field-${i}`} />
                             )
                         })}
 

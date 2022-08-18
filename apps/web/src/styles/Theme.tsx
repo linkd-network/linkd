@@ -75,6 +75,23 @@ const theme = createTheme({
                     color: theme.palette.text.secondary,
                 })
             },
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    '&.MuiToggleButton-root': {
+                        borderColor: `${theme.palette.primary.light}`,
+                        color: `${theme.palette.text.secondary}`
+                    },
+                    '&.MuiToggleButton-root.Mui-selected': {
+                        color: `${theme.palette.text.secondary}`
+                    },
+                    '&.MuiChip-root': {
+                        backgroundColor: `${theme.palette.primary.light}`,
+                        color: `${theme.palette.text.secondary}`
+                    }
+                }),
+            }
         }
     },
 });
