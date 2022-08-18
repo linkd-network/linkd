@@ -56,12 +56,12 @@ const ConnectWalletButton: React.FC = () => {
           {isConnected ? (
             <div className="card">
               <div className="card-row">
-                <Button className="bg-blue-600 px-3 py-1 rounded-md">
+                <p className="bg-blue-600 px-3 py-1 rounded-md text-white">
                   {accountAddress.slice(0, 5)}
                   ...
-                  {accountAddress.slice(accountAddress.length - 6, accountAddress.length)} (Balance:{" "}
+                  {accountAddress.slice(accountAddress.length - 3, accountAddress.length)} (Balance:{" "}
                   {accountBalance.slice(0, 3)})
-                </Button>
+                </p>
               </div>
             </div>
           ) : (
