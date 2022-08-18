@@ -1,8 +1,11 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { currentWalletState } from "../../state";
+import { useRecoilState } from "recoil";
 
 const ConnectWalletButton: React.FC = () => {
+  const [currentWallet, setCurrentWallet] = useRecoilState(currentWalletState);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
@@ -42,6 +45,7 @@ const ConnectWalletButton: React.FC = () => {
       let balance = await provider.getBalance(accounts[0]);
       let bal = ethers.utils.formatEther(balance);
       setAccountAddress(accounts[0]);
+      setCurrentWallet(accounts[0]);
       setAccountBalance(bal);
       setIsConnected(true);
     } catch (error) {
@@ -57,9 +61,9 @@ const ConnectWalletButton: React.FC = () => {
             <div className="card">
               <div className="card-row">
                 <p className="bg-blue-600 px-3 py-1 rounded-md text-white">
-                  {accountAddress.slice(0, 5)}
+                  {currentWallet.slice(0, 5)}
                   ...
-                  {accountAddress.slice(accountAddress.length - 3, accountAddress.length)} (Balance:{" "}
+                  {currentWallet.slice(currentWallet.length - 3, currentWallet.length)} (Balance:{" "}
                   {accountBalance.slice(0, 3)})
                 </p>
               </div>

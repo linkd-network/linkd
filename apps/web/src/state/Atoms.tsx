@@ -5,6 +5,11 @@ const currentNavLabelState = atom({
     default: 'Create',
 });
 
+const currentWalletState = atom({
+    key: 'currentWalletState',
+    default: '',
+});
+
 export {
-    currentNavLabelState
+    currentNavLabelState, currentWalletState
 }
