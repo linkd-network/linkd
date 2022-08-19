@@ -111,7 +111,10 @@ const Create = ({}: CreateProps): JSX.Element => {
 
                         {customInputsList.map((formItem, i) => {
                             return (
-                                <CustomField setValues={setValues} key={`field-${i}`} />
+                                <CustomField
+                                    setValues={setValues}
+                                    key={`field-${i}`}
+                                />
                             )
                         })}
 

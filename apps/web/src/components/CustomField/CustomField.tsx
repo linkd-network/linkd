@@ -1,7 +1,7 @@
 import React, {SetStateAction, useEffect, useRef, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
 import { v4 as uuidv4 } from 'uuid';
-import {DynamicValueField} from "./fragments/DynamicValueField";
+import {DynamicField} from "./fragments/DynamicField";
 
 interface CustomFieldProps {
     setValues: SetStateAction<any>;
@@ -31,7 +31,7 @@ const CustomField = ({ setValues }: CustomFieldProps) => {
 
     return (
         <Stack sx={{mt: 2}} spacing={2} direction="row">
-            <FormControl sx={{flex: 1}}>
+            <FormControl sx={{width: 125}}>
                 <InputLabel color="secondary" id={`type-${uid.current}`}>Type</InputLabel>
                 <Select
                     labelId={`type-${uid.current}`}
@@ -53,11 +53,10 @@ const CustomField = ({ setValues }: CustomFieldProps) => {
                 name="key"
                 variant="outlined"
                 color="secondary"
-                fullWidth
                 onChange={handleChange}
-                sx={{flex: 1}}
+                sx={{width: 200}}
             />
-            <DynamicValueField
+            <DynamicField
                 id={`value-${uid.current}`}
                 onChange={handleChange}
                 type={type}
