@@ -1,14 +1,13 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { currentWalletState } from "../../state";
+import { userDetailsState } from "../../state";
 import { useRecoilState } from "recoil";
+import { Preview } from "@mui/icons-material";
 
 const ConnectWalletButton: React.FC = () => {
-  const [currentWallet, setCurrentWallet] = useRecoilState(currentWalletState);
+  const [userDetails, setUserDetails] = useRecoilState(userDetailsState);
   const [haveMetamask, sethaveMetamask] = useState(true);
-  const [accountBalance, setAccountBalance] = useState("");
-  const [isConnected, setIsConnected] = useState(false);
 
   // @ts-ignore
   const { ethereum } = window;
@@ -16,13 +15,11 @@ const ConnectWalletButton: React.FC = () => {
   // @ts-ignore
   let provider: Web3Provider;
   useEffect(() => {
-
     // @ts-ignore
     const { ethereum } = window;
 
     if (!ethereum) return;
     provider = new ethers.providers.Web3Provider(ethereum);
-
 
     const checkMetamaskAvailability = async () => {
       if (!ethereum) {
@@ -43,11 +40,17 @@ const ConnectWalletButton: React.FC = () => {
       });
       let balance = await provider.getBalance(accounts[0]);
       let bal = ethers.utils.formatEther(balance);
-      setCurrentWallet(accounts[0]);
-      setAccountBalance(bal);
-      setIsConnected(true);
+      setUserDetails((data) => ({
+        ...data,
+        walletAddress: accounts[0],
+        accountBalance: bal,
+        isConnected: true,
+      }));
     } catch (error) {
-      setIsConnected(false);
+      setUserDetails((data) => ({
+        ...data,
+        isConnected: false,
+      }));
     }
   };
 
@@ -55,14 +58,17 @@ const ConnectWalletButton: React.FC = () => {
     <div className="App-header text-white">
       {haveMetamask ? (
         <div className="App-header">
-          {isConnected ? (
+          {userDetails.isConnected ? (
             <div className="card">
               <div className="card-row">
                 <p className="bg-blue-600 px-3 py-1 rounded-md text-white">
-                  {currentWallet.slice(0, 5)}
+                  {userDetails.walletAddress.slice(0, 5)}
                   ...
-                  {currentWallet.slice(currentWallet.length - 3, currentWallet.length)} (Balance:{" "}
-                  {accountBalance.slice(0, 3)})
+                  {userDetails.walletAddress.slice(
+                    userDetails.walletAddress.length - 3,
+                    userDetails.walletAddress.length
+                  )}{" "}
+                  (Balance: {userDetails.accountBalance.slice(0, 3)})
                 </p>
               </div>
             </div>
@@ -84,6 +90,4 @@ const ConnectWalletButton: React.FC = () => {
   );
 };
 
-export {
-  ConnectWalletButton
-};
+export { ConnectWalletButton };

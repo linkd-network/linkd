@@ -5,11 +5,15 @@ const currentNavLabelState = atom({
     default: 'Create',
 });
 
-const currentWalletState = atom({
-    key: 'currentWalletState',
-    default: '',
+const userDetailsState = atom({
+    key: 'userDetails',
+    default: {
+        walletAddress: "",
+        accountBalance: "",
+        isConnected: false
+    },
 });
 
 export {
-    currentNavLabelState, currentWalletState
+    currentNavLabelState, userDetailsState
 }
