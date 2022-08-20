@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
 import {TextField, Button, Stack} from '@mui/material';
@@ -39,10 +39,6 @@ const Create = ({}: CreateProps): JSX.Element => {
     const {entityType} = useParams();
     const {register, handleSubmit, reset} = useForm();
 
-    useEffect(() => {
-        // console.log(values)
-    }, [values]);
-
     const onSubmit = async (data: FieldValues) => {
         try {
             const validCustomUserField = Object.values(values).filter(({field}) => field.key && field.value);
@@ -59,10 +55,9 @@ const Create = ({}: CreateProps): JSX.Element => {
                 body: JSON.stringify(data)
             });
 
-            console.log(res.json())
-
             setCustomFields([]);
             reset();
+
         } catch (err) {
             console.log('Error submitting form: ', err);
         }
