@@ -35,7 +35,7 @@ const CustomField = ({ uuid, setValues, handleRemove }: CustomFieldProps) => {
 
     return (
         <Stack sx={{mt: 2}} spacing={2} direction="row">
-            <IconButton data-uid={uuid} onClick={() => handleRemove(uuid)} color="info" aria-label="delete">
+            <IconButton edge="start" data-uid={uuid} onClick={() => handleRemove(uuid)} color="info" aria-label="delete">
                 <RemoveCircleOutlineIcon />
             </IconButton>
 
