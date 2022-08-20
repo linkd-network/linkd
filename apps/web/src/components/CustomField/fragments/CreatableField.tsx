@@ -1,38 +1,46 @@
 import React from "react";
 import {Autocomplete, Chip, TextField} from "@mui/material";
 
-const CreatableField = ({sx}: any) => {
+const CreatableField =
+    ({
+         onChange,
+         id = null,
+         sx = {},
+         defaultValue = [],
+         options = [],
+         name,
+         label,
+     }: any) => {
 
-    const handleChange = (x: any, emails: any) => console.log(x, emails);
-
-    return (
-        <Autocomplete
-            multiple
-            id="tags-filled"
-            onChange={handleChange}
-            options={[]}
-            defaultValue={[]}
-            freeSolo
-            fullWidth
-            sx={sx}
-            renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                    <Chip label={option} {...getTagProps({ index })} />
-                ))
-            }
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Value"
-                    name="value"
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth
-                />
-            )}
-        />
-    );
-};
+        return (
+            <Autocomplete
+                multiple
+                id={id}
+                onChange={onChange}
+                options={options}
+                defaultValue={defaultValue}
+                freeSolo
+                fullWidth
+                limitTags={5}
+                sx={sx}
+                renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                        <Chip label={option} {...getTagProps({index})} />
+                    ))
+                }
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        name={name}
+                        label={label}
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                    />
+                )}
+            />
+        );
+    };
 
 export {
     CreatableField

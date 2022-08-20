@@ -1,29 +1,33 @@
-import React, {SetStateAction, useEffect, useRef, useState} from 'react';
+import React, {SetStateAction, useRef, useState} from 'react';
 import {FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
-import { v4 as uuidv4 } from 'uuid';
 import {DynamicField} from "./fragments/DynamicField";
 
 interface CustomFieldProps {
     setValues: SetStateAction<any>;
+    uuid: string;
 }
 
-const CustomField = ({ setValues }: CustomFieldProps) => {
+const CustomField = ({ uuid, setValues }: CustomFieldProps) => {
     const [type, setType] = useState('text');
-    const uid = useRef<string>(uuidv4());
+    const uid = useRef<string>(uuid);
 
     const handleChange = ({target}: any) => {
+        const id = uid.current;
         const {name, value} = target;
 
         if (name === 'type') setType(value);
 
         setValues((prevState: any) => {
-            if (!prevState[uid.current]) prevState[uid.current] = {};
+            const field = prevState[id] || {};
+            field['value'] = field['value'] || [];
+
+            const isCollectionValue = field.type === 'collection' && name === 'value';
 
             return {
                 ...prevState,
-                [uid.current]: {
-                    ...prevState[uid.current],
-                    [name]: value
+                [id]: {
+                    ...field,
+                    [name]: isCollectionValue ? [...field[name], value] : value,
                 }
             }
         });
@@ -61,7 +65,8 @@ const CustomField = ({ setValues }: CustomFieldProps) => {
                 onChange={handleChange}
                 type={type}
                 name="value"
-                sx={{flex: 3}}
+                label="Value"
+                sx={{flex: 1}}
             />
         </Stack>
     );

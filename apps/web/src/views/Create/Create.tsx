@@ -1,117 +1,100 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
-import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
-import {TextField, Button, Stack, FormControl, Select, MenuItem, InputLabel} from '@mui/material';
+import {TextField, Button, Stack} from '@mui/material';
 import {Add} from '@mui/icons-material';
 import {CustomField} from "../../components/CustomField/CustomField";
+import {v4 as uuidv4} from 'uuid';
 
-enum FieldTypes {
-    BOOLEAN,
-    STRING,
-    NUMBER,
-    COLLECTION,
+interface FormField {
+    type: string;
+    name: string;
+    label: string;
 }
 
-type FieldType = boolean | string | number | Array<string>;
+const formFields: FormField[] = [
+    {
+        name: 'id',
+        label: 'Data Resource ID',
+        type: 'text',
+    }
+];
 
-interface _Field<T> {
-    type: FieldTypes;
-    key: string;
-    value: T;
-}
-
-interface InputConfig {
-    field: string;
-    label: string
-    type: string
-}
-
-interface Field {
-    field: string;
-    value: string;
-}
-
-interface ModalConfig {
-    showModal: boolean;
-    title: string;
+interface CustomField {
+    [key: string]: {
+        type: string
+        key: string;
+        value: any;
+    };
 }
 
 interface CreateProps {
     // ...proptypes
 }
 
-
-const inputsList: InputConfig[] = [
-    {field: 'name', label: 'Data Resource ID', type: 'text'}
-]
-
 const Create = ({}: CreateProps): JSX.Element => {
-    const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
-
-    const [values, setValues] = useState({});
+    const [customFields, setCustomFields] = useState<string[]>([]);
+    const [values, setValues] = useState<object>({});
 
     const {entityType} = useParams();
     const {register, handleSubmit, reset} = useForm();
 
+    useEffect(() => {
+        console.log(values)
+    }, [values])
+
     const onSubmit = async (data: FieldValues) => {
         try {
-            const validCustomUserField = customInputsList.filter(({field, value}) => field && value);
+            console.log(values);
+            const validCustomUserField = Object.values(values).filter(({field}) => field.key && field.value);
 
             data.customMetadata = {}
 
-            validCustomUserField.forEach(({field, value}) => {
-                data.customMetadata[field] = value
+            validCustomUserField.forEach(({field}) => {
+                data.customMetadata[field.key] = field.value
             })
 
-            const res = await submitCreateDRTReq({userData: data});
+            const res = await fetch(`/mgmt/v1/drt/subscribe/${entityType}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
 
-            if (res?.success) // close modal
+            console.log(res.json())
 
-            setCustomInputsList([]);
+            setCustomFields([]);
             reset();
         } catch (err) {
             console.log('Error submitting form: ', err);
         }
     };
 
-    const submitCreateDRTReq = async ({userData}: { userData: Record<string, any> }) => {
-
-        const response = await fetch(`/mgmt/v1/drt/subscribe/${entityType}`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(userData)
-        });
-
-        return response.json();
-
-    }
-
-    const addCustomField = () => setCustomInputsList(prevState => [...prevState, {type: '', field: '', value: '' }]);
-
+    const createNewCustomField = () => {
+        setCustomFields(prevState => [...prevState, uuidv4()])
+    };
 
     return (
         <div className="flex items-center justify-center">
-
             <div className="flex-9/12">
                 <div className="p-12 shadow-md rounded-md bg-black">
                     {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {inputsList.map(({field, label, type}) => {
+                        {formFields.map(({name, label, type}) => {
                             return <TextField
                                 fullWidth
-                                key={field}
+                                key={name}
                                 label={label}
                                 variant="outlined"
                                 color="secondary"
-                                {...register(field)}
                                 type={type}
+                                {...register(name)}
                             />
                         })}
 
-                        {customInputsList.map((formItem, i) => {
+                        {customFields.map((uuid, i) => {
                             return (
                                 <CustomField
+                                    uuid={uuid}
                                     setValues={setValues}
                                     key={`field-${i}`}
                                 />
@@ -122,7 +105,7 @@ const Create = ({}: CreateProps): JSX.Element => {
                             <Button
                                 variant="outlined"
                                 color="secondary"
-                                onClick={addCustomField}
+                                onClick={createNewCustomField}
                                 startIcon={<Add />}
                             >
                                 META DATA

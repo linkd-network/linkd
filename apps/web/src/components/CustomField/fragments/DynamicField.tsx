@@ -3,16 +3,32 @@ import {TextField} from "@mui/material";
 import {BooleanField} from "./BooleanField";
 import {CreatableField} from "./CreatableField";
 
-const DynamicField = ({id, type, onChange, name, sx = {}}: any) => {
-    if (type === 'boolean') return <BooleanField sx={{flex: 1}} id={id} name={name} onChange={onChange} />
+const DynamicField = ({id, type, onChange, name, label, sx = {}}: any) => {
+    if (type === 'boolean') return (
+        <BooleanField
+            sx={{...sx, flex: 1}}
+            id={id}
+            name={name}
+            onChange={onChange}
+        />
+    )
 
-    if (type === 'collection') return <CreatableField sx={{flex: 4}} />
+    if (type === 'collection') return (
+        <CreatableField
+            id={id}
+            type={type}
+            name={name}
+            label={label}
+            sx={{...sx, flex: 4}}
+            onChange={onChange}
+        />
+    )
 
     return (
         <TextField
-            sx={{flex: 1}}
+            sx={{...sx, flex: 1}}
             id={id}
-            label="Value"
+            label={label}
             name={name}
             type={type}
             variant="outlined"
