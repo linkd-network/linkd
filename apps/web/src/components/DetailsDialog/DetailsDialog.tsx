@@ -8,6 +8,8 @@ const DetailsDialog = ({title, open, handleClose, children}: any) => {
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={open}
+            fullWidth
+            maxWidth="md"
         >
             <ThemedDialogTitle id="customized-dialog-title" onClose={handleClose}>
                 {title}
@@ -16,7 +18,7 @@ const DetailsDialog = ({title, open, handleClose, children}: any) => {
                 {children}
             </DialogContent>
             <DialogActions>
-                <Button color="secondary" variant="outlined" autoFocus onClick={handleClose}>
+                <Button color="secondary" variant="contained" autoFocus onClick={handleClose}>
                     Done
                 </Button>
             </DialogActions>
