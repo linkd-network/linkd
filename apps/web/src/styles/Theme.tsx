@@ -19,6 +19,12 @@ const theme = createTheme({
             default: '#101010',
             paper: '#202020',
         },
+        info: {
+            main: '#606060',
+            contrastText: '#EFEFEF',
+            light: '#808080',
+            dark: '#404040',
+        },
         text: {
             primary: '#EFEFEF',
             secondary: '#9F9F9F',

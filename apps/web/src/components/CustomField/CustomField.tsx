@@ -1,31 +1,31 @@
 import React, {SetStateAction, useRef, useState} from 'react';
-import {FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, Stack, TextField, IconButton} from "@mui/material";
 import {DynamicField} from "./fragments/DynamicField";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 interface CustomFieldProps {
     setValues: SetStateAction<any>;
     uuid: string;
+    handleRemove: (uuid: string) => void;
 }
 
-const CustomField = ({ uuid, setValues }: CustomFieldProps) => {
+const CustomField = ({ uuid, setValues, handleRemove }: CustomFieldProps) => {
     const [type, setType] = useState('text');
-    const uid = useRef<string>(uuid);
 
     const handleChange = ({target}: any) => {
-        const id = uid.current;
         const {name, value} = target;
 
         if (name === 'type') setType(value);
 
         setValues((prevState: any) => {
-            const field = prevState[id] || {};
+            const field = prevState[uuid] || {};
             field['value'] = field['value'] || [];
 
             const isCollectionValue = field.type === 'collection' && name === 'value';
 
             return {
                 ...prevState,
-                [id]: {
+                [uuid]: {
                     ...field,
                     [name]: isCollectionValue ? [...field[name], value] : value,
                 }
@@ -35,11 +35,15 @@ const CustomField = ({ uuid, setValues }: CustomFieldProps) => {
 
     return (
         <Stack sx={{mt: 2}} spacing={2} direction="row">
+            <IconButton data-uid={uuid} onClick={() => handleRemove(uuid)} color="info" aria-label="delete">
+                <RemoveCircleOutlineIcon />
+            </IconButton>
+
             <FormControl sx={{width: 125}}>
-                <InputLabel color="secondary" id={`type-${uid.current}`}>Type</InputLabel>
+                <InputLabel color="secondary" id={`type-${uuid}`}>Type</InputLabel>
                 <Select
-                    labelId={`type-${uid.current}`}
-                    id={`type-${uid.current}`}
+                    labelId={`type-${uuid}`}
+                    id={`type-${uuid}`}
                     label="Type"
                     defaultValue=""
                     name="type"
@@ -52,7 +56,7 @@ const CustomField = ({ uuid, setValues }: CustomFieldProps) => {
                 </Select>
             </FormControl>
             <TextField
-                id={`key-${uid.current}`}
+                id={`key-${uuid}`}
                 label="Key"
                 name="key"
                 variant="outlined"
@@ -61,7 +65,7 @@ const CustomField = ({ uuid, setValues }: CustomFieldProps) => {
                 sx={{width: 200}}
             />
             <DynamicField
-                id={`value-${uid.current}`}
+                id={`value-${uuid}`}
                 onChange={handleChange}
                 type={type}
                 name="value"

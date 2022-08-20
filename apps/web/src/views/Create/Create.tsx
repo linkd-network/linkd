@@ -40,12 +40,11 @@ const Create = ({}: CreateProps): JSX.Element => {
     const {register, handleSubmit, reset} = useForm();
 
     useEffect(() => {
-        console.log(values)
-    }, [values])
+        // console.log(values)
+    }, [values]);
 
     const onSubmit = async (data: FieldValues) => {
         try {
-            console.log(values);
             const validCustomUserField = Object.values(values).filter(({field}) => field.key && field.value);
 
             data.customMetadata = {}
@@ -70,8 +69,14 @@ const Create = ({}: CreateProps): JSX.Element => {
     };
 
     const createNewCustomField = () => {
-        setCustomFields(prevState => [...prevState, uuidv4()])
+        setCustomFields(prevState => [...prevState, uuidv4()]);
     };
+
+    const handleRemove = (uid: string) => {
+        setCustomFields(customFields.filter(function(item) {
+            return item !== uid
+        }));
+    }
 
     return (
         <div className="flex items-center justify-center">
@@ -94,6 +99,7 @@ const Create = ({}: CreateProps): JSX.Element => {
                         {customFields.map((uuid, i) => {
                             return (
                                 <CustomField
+                                    handleRemove={handleRemove}
                                     uuid={uuid}
                                     setValues={setValues}
                                     key={`field-${i}`}
