@@ -5,7 +5,7 @@ import {TextField, Button, Stack, Typography, Divider} from '@mui/material';
 import {Add} from '@mui/icons-material';
 import {CustomField} from "../../components/CustomField/CustomField";
 import {v4 as uuidv4} from 'uuid';
-import {DetailsDialog} from "../../components/Dialog/Dialog";
+import {DetailsDialog} from "../../components/DetailsDialog/DetailsDialog";
 import {CopyBlock, a11yDark} from "react-code-blocks";
 
 interface FormField {
@@ -90,7 +90,7 @@ const Create = ({}: CreateProps): JSX.Element => {
     return (
         <Fragment>
             <div className="flex items-center justify-center">
-                <div className="flex-9/12">
+                <div className="flex-8/12">
                     <div className="p-12 shadow-md rounded-md bg-black">
                         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
                         <form onSubmit={handleSubmit(onSubmit)}>
