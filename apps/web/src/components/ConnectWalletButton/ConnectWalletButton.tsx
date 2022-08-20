@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { userDetailsState } from "../../state";
 import { useRecoilState } from "recoil";
-import { Preview } from "@mui/icons-material";
 
 const ConnectWalletButton: React.FC = () => {
   const [userDetails, setUserDetails] = useRecoilState(userDetailsState);
