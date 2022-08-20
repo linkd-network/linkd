@@ -7,14 +7,9 @@ import {CustomField} from "../../components/CustomField/CustomField";
 import {v4 as uuidv4} from 'uuid';
 import {DetailsDialog} from "../../components/DetailsDialog/DetailsDialog";
 import {CopyBlock, a11yDark} from "react-code-blocks";
+import {formFields, trackingScript} from "./mocks";
 
-interface FormField {
-    type: string;
-    name: string;
-    label: string;
-}
-
-interface CustomField {
+interface CustomFields {
     [key: string]: {
         type: string
         key: string;
@@ -26,25 +21,9 @@ interface CreateProps {
     // ...proptypes
 }
 
-const formFields: FormField[] = [
-    {
-        name: 'id',
-        label: 'Data Resource ID',
-        type: 'text',
-    }
-];
-
-const trackingScript = `<script src="https://www.cnss.net/track/js?id=1051s3934x"></script>
-<script>
-    window.CLayer = window.CLayer || []; 
-    function cTag(){CLayer.push(args);} 
-    cTag('js', new Date()); 
-    cTag('conf', '1051s3934x');
-</script>`;
-
 const Create = ({}: CreateProps): JSX.Element => {
     const [customFields, setCustomFields] = useState<string[]>([]);
-    const [values, setValues] = useState<object>({});
+    const [values, setValues] = useState<CustomFields>({});
     const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const {entityType} = useParams();
@@ -54,12 +33,12 @@ const Create = ({}: CreateProps): JSX.Element => {
 
     const onSubmit = async (data: FieldValues) => {
         try {
-            const validCustomUserField = Object.values(values).filter(({field}) => field.key && field.value);
+            const validCustomUserField = Object.values(values).filter(({key, value}) => key && value);
 
             data.customMetadata = {}
 
-            validCustomUserField.forEach(({field}) => {
-                data.customMetadata[field.key] = field.value
+            validCustomUserField.forEach(({key, value}) => {
+                data.customMetadata[key] = value
             })
 
             const res = await fetch(`/mgmt/v1/drt/subscribe/${entityType}`, {
@@ -84,8 +63,8 @@ const Create = ({}: CreateProps): JSX.Element => {
 
     const handleRemove = (uid: string) => {
         // remove from values
-        setValues((prevState: object) => {
-            delete (prevState as any)[uid];
+        setValues((prevState) => {
+            delete prevState[uid];
             return prevState;
         })
 
