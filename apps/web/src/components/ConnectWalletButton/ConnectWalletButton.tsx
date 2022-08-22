@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { userDetailsState } from "../../state";
+import { useRecoilState } from "recoil";
 
 const ConnectWalletButton: React.FC = () => {
+  const [userDetails, setUserDetails] = useRecoilState(userDetailsState);
   const [haveMetamask, sethaveMetamask] = useState(true);
-  const [accountAddress, setAccountAddress] = useState("");
-  const [accountBalance, setAccountBalance] = useState("");
-  const [isConnected, setIsConnected] = useState(false);
 
   // @ts-ignore
   const { ethereum } = window;
@@ -39,27 +39,36 @@ const ConnectWalletButton: React.FC = () => {
       });
       let balance = await provider.getBalance(accounts[0]);
       let bal = ethers.utils.formatEther(balance);
-      setAccountAddress(accounts[0]);
-      setAccountBalance(bal);
-      setIsConnected(true);
+      setUserDetails((data) => ({
+        ...data,
+        walletAddress: accounts[0],
+        accountBalance: bal,
+        isConnected: true,
+      }));
     } catch (error) {
-      setIsConnected(false);
+      setUserDetails((data) => ({
+        ...data,
+        isConnected: false,
+      }));
     }
   };
 
   return (
-    <div className="text-white">
+    <div className="App-header text-white">
       {haveMetamask ? (
-        <div>
-          {isConnected ? (
+        <div className="App-header">
+          {userDetails.isConnected ? (
             <div className="card">
               <div className="card-row">
-                <Button className="bg-blue-600 px-3 py-1 rounded-md">
-                  {accountAddress.slice(0, 5)}
+                <p className="bg-blue-600 px-3 py-1 rounded-md text-white">
+                  {userDetails.walletAddress.slice(0, 5)}
                   ...
-                  {accountAddress.slice(accountAddress.length - 6, accountAddress.length)} (Balance:{" "}
-                  {accountBalance.slice(0, 3)})
-                </Button>
+                  {userDetails.walletAddress.slice(
+                    userDetails.walletAddress.length - 3,
+                    userDetails.walletAddress.length
+                  )}{" "}
+                  (Balance: {userDetails.accountBalance.slice(0, 3)})
+                </p>
               </div>
             </div>
           ) : (
@@ -80,6 +89,4 @@ const ConnectWalletButton: React.FC = () => {
   );
 };
 
-export {
-  ConnectWalletButton
-};
+export { ConnectWalletButton };
