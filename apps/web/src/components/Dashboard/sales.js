@@ -95,7 +95,6 @@ export const Sales = (props) => {
         )}
         title="Latest Sales"
       />
-      <Divider />
       <CardContent>
         <Box
           sx={{
@@ -109,7 +108,6 @@ export const Sales = (props) => {
           />
         </Box>
       </CardContent>
-      <Divider />
       <Box
         sx={{
           display: 'flex',

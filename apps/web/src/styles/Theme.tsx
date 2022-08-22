@@ -23,21 +23,6 @@ const theme = createTheme({
       dark: "#1C4AB0",
       contrastText: "#E4EBFC",
     },
-    // background: {
-    //   default: "#101010",
-    //   paper: "#202020",
-    // },
-    // info: {
-    //   main: "#606060",
-    //   contrastText: "#EFEFEF",
-    //   light: "#808080",
-    //   dark: "#404040",
-    // },
-    // text: {
-    //   primary: "#EFEFEF",
-    //   secondary: "#9F9F9F",
-    //   disabled: "#606060",
-    // },
     grey: {
       50: "#EFEFEF",
       100: "#DFDFDF",
@@ -50,19 +35,6 @@ const theme = createTheme({
       800: "#101010",
       900: "#000000",
     },
-
-    // Duyen
-    // neutral: {
-    //     100: '#F3F4F6',
-    //     200: '#E5E7EB',
-    //     300: '#D1D5DB',
-    //     400: '#9CA3AF',
-    //     500: '#6B7280',
-    //     600: '#4B5563',
-    //     700: '#374151',
-    //     800: '#1F2937',
-    //     900: '#111827'
-    //   },
     action: {
       active: "#6B7280",
       focus: "rgba(55, 65, 81, 0.12)",
@@ -75,19 +47,6 @@ const theme = createTheme({
       default: "#F9FAFC",
       paper: "#FFFFFF",
     },
-    divider: "#E6E8F0",
-    // primary: {
-    //   main: "#5048E5",
-    //   light: "#828DF8",
-    //   dark: "#3832A0",
-    //   contrastText: "#FFFFFF",
-    // },
-    // secondary: {
-    //   main: "#10B981",
-    //   light: "#3FC79A",
-    //   dark: "#0B815A",
-    //   contrastText: "#FFFFFF",
-    // },
     success: {
       main: "#14B8A6",
       light: "#43C6B7",
@@ -118,12 +77,9 @@ const theme = createTheme({
       disabled: "rgba(55, 65, 81, 0.48)",
     },
   },
-
-  // Duyen
   shape: {
     borderRadius: 8,
   },
-
   shadows: [
     "none",
     "0px 1px 1px rgba(100, 116, 139, 0.06), 0px 1px 2px rgba(100, 116, 139, 0.1)",
@@ -151,12 +107,7 @@ const theme = createTheme({
     "0px 25px 50px rgba(100, 116, 139, 0.25)",
     "0px 25px 50px rgba(100, 116, 139, 0.25)",
   ],
-  // Duyen
-
   typography: {
-    // fontFamily: "'Baloo 2'",
-
-    // DUyen
     button: {
       fontWeight: 600,
     },
@@ -281,8 +232,6 @@ const theme = createTheme({
         }),
       },
     },
-
-    // Duyen
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -311,11 +260,6 @@ const theme = createTheme({
         },
       },
     },
-    //   MuiButtonBase: {
-    //     defaultProps: {
-    //       disableRipple: true,
-    //     },
-    //   },
     MuiCardContent: {
       styleOverrides: {
         root: {
@@ -372,13 +316,6 @@ const theme = createTheme({
         },
       },
     },
-    //   MuiOutlinedInput: {
-    //     styleOverrides: {
-    //       notchedOutline: {
-    //         borderColor: "#E6E8F0",
-    //       },
-    //     },
-    //   },
     MuiTableHead: {
       styleOverrides: {
         root: {
