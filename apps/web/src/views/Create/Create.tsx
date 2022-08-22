@@ -1,24 +1,20 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState, Fragment} from 'react';
 import {useParams} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
-import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
-import {TextField, Button, Stack} from '@mui/material';
+import {TextField, Button, Stack, Typography, Divider} from '@mui/material';
 import {Add} from '@mui/icons-material';
+import {CustomField} from "../../components/CustomField/CustomField";
+import {v4 as uuidv4} from 'uuid';
+import {DetailsDialog} from "../../components/DetailsDialog/DetailsDialog";
+import {CopyBlock, a11yDark} from "react-code-blocks";
+import {formFields, trackingScript} from "./mocks";
 
-interface InputConfig {
-    field: string;
-    label: string
-    type: string
-}
-
-interface Field {
-    field: string;
-    value: string;
-}
-
-interface ModalConfig {
-    showModal: boolean;
-    title: string;
+interface CustomFields {
+    [key: string]: {
+        type: string
+        key: string;
+        value: any;
+    };
 }
 
 interface CreateProps {
@@ -26,136 +22,130 @@ interface CreateProps {
 }
 
 const Create = ({}: CreateProps): JSX.Element => {
-    const [customInputsList, setCustomInputsList] = useState<Field[]>([]);
-    const [modalConfig, setModalConfig] = useState<ModalConfig>({
-        showModal: false,
-        title: ''
-    });
+    const [customFields, setCustomFields] = useState<string[]>([]);
+    const [values, setValues] = useState<CustomFields>({});
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const {entityType} = useParams();
     const {register, handleSubmit, reset} = useForm();
 
-    const inputsList: InputConfig[] = [
-        {field: 'name', label: 'Data Resource ID', type: 'text'}
-    ]
+    const handleClose = () => setIsModalOpen(false);
 
     const onSubmit = async (data: FieldValues) => {
         try {
-            const validCustomUserField = customInputsList.filter(({field, value}) => field && value);
+            const validCustomUserField = Object.values(values).filter(({key, value}) => key && value);
 
             data.customMetadata = {}
 
-            validCustomUserField.forEach(({field, value}) => {
-                data.customMetadata[field] = value
+            validCustomUserField.forEach(({key, value}) => {
+                data.customMetadata[key] = value
             })
 
-            const res = await submitCreateDRTReq({userData: data});
+            const res = await fetch(`/mgmt/v1/drt/subscribe/${entityType}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
 
-            if (res?.success) setModalConfig({showModal: true, title: 'Instructions Popup'});
+            setIsModalOpen(true);
 
-            setCustomInputsList([]);
+            setCustomFields([]);
             reset();
+
         } catch (err) {
             console.log('Error submitting form: ', err);
         }
     };
 
-    const submitCreateDRTReq = async ({userData}: { userData: Record<string, any> }) => {
+    const createNewCustomField = () => {
+        setCustomFields(prevState => [...prevState, uuidv4()]);
+    };
 
-        const response = await fetch(`/mgmt/v1/drt/subscribe/${entityType}`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(userData)
-        });
+    const handleRemove = (uid: string) => {
+        // remove from values
+        setValues((prevState) => {
+            delete prevState[uid];
+            return prevState;
+        })
 
-        return response.json();
-
+        // remove from ui
+        setCustomFields(customFields.filter(function (item) {
+            return item !== uid
+        }));
     }
-
-    const addCustomField = () => setCustomInputsList([...customInputsList, {field: '', value: ''}]);
-
-    const customFieldChange = ({
-                                   field,
-                                   key,
-                                   value
-                               }: { value: string, key: "field" | "value", field: { field: string, value: string } }) => {
-        field[key] = value;
-    }
-
-    const closeModal = () => setModalConfig({showModal: false, title: ''});
 
     return (
-        <div className="flex items-center justify-center">
-            <SubscribeModal closeCallBack={closeModal} title={modalConfig.title} showModal={modalConfig.showModal}/>
+        <Fragment>
+            <div className="flex items-center justify-center">
+                <div className="flex-8/12">
+                    <div className="p-12 shadow-md rounded-md bg-black">
+                        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            {formFields.map(({name, label, type}) => {
+                                return <TextField
+                                    fullWidth
+                                    key={name}
+                                    label={label}
+                                    variant="outlined"
+                                    color="secondary"
+                                    type={type}
+                                    {...register(name)}
+                                />
+                            })}
 
-            <div className="flex-6/12">
-                <div className="p-12 shadow-md rounded-md bg-black">
-                    {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {inputsList.map((formItem) => {
-                            return <TextField
-                                fullWidth
-                                key={formItem.field}
-                                label={formItem.label}
-                                variant="outlined"
-                                color="secondary"
-                                {...register(formItem.field)}
-                                type={formItem.type}
-                            />
-                        })}
-
-                        {customInputsList.map((formItem, i) => {
-                            return (
-                                <Stack sx={{mt: 2}} key={i} spacing={2} direction="row">
-                                    <TextField
-                                        id={`field-${i}`}
-                                        label="Key"
-                                        variant="outlined"
-                                        color="secondary"
-                                        fullWidth
-                                        onChange={({target}: any) => customFieldChange({
-                                            field: formItem,
-                                            key: 'field',
-                                            value: target.value
-                                        })}
+                            {customFields.map((uuid, i) => {
+                                return (
+                                    <CustomField
+                                        handleRemove={handleRemove}
+                                        uuid={uuid}
+                                        setValues={setValues}
+                                        key={`field-${i}`}
                                     />
-                                    <TextField
-                                        id={`value-${i}`}
-                                        label="Value"
-                                        variant="outlined"
-                                        color="secondary"
-                                        fullWidth
-                                        onChange={({target}: any) => customFieldChange({
-                                            field: formItem,
-                                            key: 'value',
-                                            value: target.value
-                                        })}
-                                    />
-                                </Stack>
-                            )
-                        })}
+                                )
+                            })}
 
-                        <Stack sx={{mt: 4}} spacing={2} direction="row" justifyContent="space-between">
-                            <Button
-                                variant="outlined"
-                                color="secondary"
-                                onClick={addCustomField}
-                                startIcon={<Add />}
-                            >
-                                META DATA
-                            </Button>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="secondary"
-                            >
-                                SUBMIT
-                            </Button>
-                        </Stack>
-                    </form>
+                            <Stack sx={{mt: 4}} spacing={2} direction="row" justifyContent="space-between">
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    onClick={createNewCustomField}
+                                    startIcon={<Add/>}
+                                >
+                                    META DATA
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="secondary"
+                                >
+                                    SUBMIT
+                                </Button>
+                            </Stack>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+            <DetailsDialog
+                title="Tracking Script Implementation Instructions"
+                open={isModalOpen}
+                handleClose={handleClose}
+            >
+                <Typography fontSize={20} gutterBottom>
+                    Copy and paste this code as the first item into the head of every webpage you want to measure
+                </Typography>
+
+                <Divider sx={{my: 2}} />
+
+                <CopyBlock
+                    text={trackingScript}
+                    language="javascript"
+                    showLineNumbers={false}
+                    theme={a11yDark}
+                    wrapLines
+                />
+
+            </DetailsDialog>
+        </Fragment>
     );
 }
 

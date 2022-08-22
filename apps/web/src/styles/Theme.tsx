@@ -11,10 +11,19 @@ const theme = createTheme({
         },
         secondary: {
             main: '#2563eb',
+            light: '#5C8AF0',
+            dark: '#1C4AB0',
+            contrastText: '#E4EBFC',
         },
         background: {
             default: '#101010',
             paper: '#202020',
+        },
+        info: {
+            main: '#606060',
+            contrastText: '#EFEFEF',
+            light: '#808080',
+            dark: '#404040',
         },
         text: {
             primary: '#EFEFEF',
@@ -50,6 +59,14 @@ const theme = createTheme({
                 root: ({ theme }) => ({
                     '&:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: `${theme.palette.secondary.main}`,
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: `${theme.palette.secondary.main}`,
+                    }
+                }),
+                focused: ({ theme }) => ({
+                    '&.MuiOutlinedInput-notchedOutline': {
+                        borderColor: `${theme.palette.secondary.main}`,
                     }
                 }),
             },
@@ -61,6 +78,30 @@ const theme = createTheme({
                 }),
             },
         },
+        MuiSelect: {
+            styleOverrides: {
+                iconOutlined: ({ theme }) => ({
+                    color: theme.palette.text.secondary,
+                })
+            },
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    '&.MuiToggleButton-root': {
+                        borderColor: `${theme.palette.primary.light}`,
+                        color: `${theme.palette.text.secondary}`
+                    },
+                    '&.MuiToggleButton-root.Mui-selected': {
+                        color: `${theme.palette.text.secondary}`
+                    },
+                    '&.MuiChip-root': {
+                        backgroundColor: `${theme.palette.primary.light}`,
+                        color: `${theme.palette.text.secondary}`
+                    }
+                }),
+            }
+        }
     },
 });
 

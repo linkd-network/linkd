@@ -27,7 +27,10 @@ const Layout = ({children}: LayoutProps) => {
                     <Navigation open={open} />
                 </header>
             </ClickAwayListener>
-            <main className="h-100vh p-14 bg-gray-900">
+            <main style={{
+                width: 'calc(100% - 64px)',
+                marginLeft: '64px',
+            }} className="h-100vh p-14 bg-gray-900">
                 <div className="container w-full mx-auto px-6">
                     {children}
                 </div>

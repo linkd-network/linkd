@@ -1,20 +1,23 @@
 import React from 'react';
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import {CSSObject, styled, Theme} from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
-import {NavigationNode} from "../../interfaces/app.interfaces";
+import {
+    Divider,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    CSSObject,
+    styled,
+    Theme,
+    Drawer as MuiDrawer
+} from "@mui/material";
 import DataArrayIcon from "@mui/icons-material/DataArray";
-import StorageIcon from "@mui/icons-material/Storage";
 import DataUsageIcon from "@mui/icons-material/DataUsage";
+import {NavigationNode} from "../../interfaces/app.interfaces";
 import {TopBarPlaceholder} from "../TopBarPlaceholder";
 import {NavItem} from "../NavItem/NavItem";
 import {useRecoilState} from "recoil";
-import { currentNavLabelState } from '../../state';
+import {currentNavLabelState} from '../../state';
 
 interface NavigationProps {
     open: boolean;
@@ -29,11 +32,6 @@ const Navigation = ({open}: NavigationProps) => {
             text: "Create",
             path: "/create",
             icon: <DataArrayIcon sx={{color: 'white'}}/>,
-        },
-        {
-            text: "Market Place",
-            path: "/market",
-            icon: <StorageIcon sx={{color: 'white'}}/>,
         },
         {
             text: "Dashboard",
