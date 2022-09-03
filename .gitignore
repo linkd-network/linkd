@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@MatanShushan 
-Branch master was renamed to main.
-microsoft
-/
-rush-example
-Public
-Code
-Issues
-Pull requests
-Actions
-Security
-Insights
-rush-example/.gitignore
-@octogonz
-octogonz Upgrade to Rush 5.76.1
-Latest commit 3c06a94 21 days ago
- History
- 3 contributors
-@octogonz@pgonzal@msftgits
-72 lines (52 sloc)  1.1 KB
-
 # Logs
 *.log
 npm-debug.log*
@@ -89,6 +61,7 @@ jspm_packages/
 
 #rush temp files
 .rush/temp/**
+=======
 # Rush temporary files
 common/deploy/
 common/temp/
@@ -97,23 +70,3 @@ common/autoinstallers/*/.npmrc
 
 # Heft
 .heft
-
-# Common toolchain intermediate files
-lib
-temp
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-You have no unread notifications Octotree
- Login with GitHub
