@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { configService } from './config/config.service';
 import { AdsModule } from './modules/ads/ads.module';
 import { DrtModule } from './modules/drt/drt.module';
-import { TrackApiModule } from './modules/track-api/track-api.module';
+import { TrackerModule } from './modules/tracker/tracker.module';
 import { UserModule } from './modules/users/users.module';
 
 require('dotenv').config();
@@ -17,7 +17,6 @@ const DB = process.env.DB;
 
 @Module({
   imports: [
-    UserModule,
     TrackApiModule,
     AdsModule,
     DrtModule,

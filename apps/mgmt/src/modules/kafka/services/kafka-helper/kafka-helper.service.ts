@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
+require("dotenv").config();
 
 @Injectable()
 export class KafkaHelperService {
-
-    getBrokers() {
-        return ['localhost:9092']
-    }
-
-
+  getBrokers() {
+    return [`census-kafka:${process.env.KAFKA_PORT}`];
+  }
 }

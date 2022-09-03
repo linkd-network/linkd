@@ -386,6 +386,13 @@
       ]
     },
     {
+      "packageName": "@shared/models",
+      "projectFolder": "libs/models",
+      "tags": [
+        "models"
+      ]
+    },
+    {
       "packageName": "@monorepo/todos-dapp",
       "projectFolder": "apps/todos-dapp"
     }
