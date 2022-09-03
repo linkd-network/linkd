@@ -60,14 +60,14 @@ jspm_packages/
 # OS X temporary files
 .DS_Store
 
-#rush temp files
-.rush/temp/**
-=======
 # Rush temporary files
 common/deploy/
 common/temp/
 common/autoinstallers/*/.npmrc
 **/.rush/temp/
+
+# Heft
+.heft
 
 # Heft
 .heft
