@@ -58,9 +58,9 @@ services:
     depends_on:
       - postgres
     build:
-      context: ./apps/mgmt
+      context: ./
       target: development
-      dockerfile: ./Dockerfile
+      dockerfile: ./mgmt-Dockerfile
     # command: tail -f /usr/src/app/apps/mgmt/
     ports:
       - ${API_PORT}:${API_PORT}
@@ -70,3 +70,19 @@ services:
       - ./apps/mgmt:/mgmt
       - .:/usr/src/app
       - /usr/src/app/node_modules
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "${ZOOKEEPER_PORT}:${ZOOKEEPER_PORT}"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: census-kafka
+    ports:
+      - "${KAFKA_PORT}:${KAFKA_PORT}"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: census-kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:${ZOOKEEPER_PORT}
+      KAFKA_BROKER_ID: 1  

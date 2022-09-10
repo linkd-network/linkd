@@ -1,32 +1,32 @@
-
 export enum SamplingRate {
-    Day = 86400,
-    HalfaDay = 43200,
-    Hour = 3600,
-    Minute = 60
+  Day = 86400,
+  HalfaDay = 43200,
+  Hour = 3600,
+  Minute = 60,
 }
 
-
 export enum AdModel {
-    CPM,
-    CPC
+  CPM,
+  CPC,
 }
 
 export enum ContentType {
-    Gif,
-    Photo,
-    Video
+  Gif,
+  Photo,
+  Video,
 }
 
-
-
 export enum KafkaTopic {
-    SCEvents = 'sc_events'
+  SCEvents = 'sc_events',
 }
 
 export enum TrackerEventType {
-    Click = 'click',
-    View = 'view',
-    DoubleClick = 'doubleClick',
-    MouseOver = 'mouseover'
+  Click = 'click',
+  View = 'view',
+  DoubleClick = 'doubleClick',
+  MouseOver = 'mouseover',
+}
+
+export enum KafkaTopics {
+  WebEvents = 'WebEvents',
 }
