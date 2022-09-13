@@ -83,7 +83,7 @@ const ConnectWalletButton: React.FC = () => {
           )}
         </div>
       ) : (
-        <p>Please Install MataMask</p>
+        <p>Please Install MetaMask</p>
       )}
     </div>
   );
